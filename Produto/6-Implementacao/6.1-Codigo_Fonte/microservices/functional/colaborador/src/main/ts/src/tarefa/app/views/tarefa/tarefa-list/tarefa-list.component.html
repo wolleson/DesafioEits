@@ -1,0 +1,40 @@
+<div flex>
+    <div layout="row">
+        <md-card flex class="pad-none">
+            <div layout="row" layout-align="center center">
+                <md-input-container flex class="push">
+                    <input mdInput placeholder="Título" [(ngModel)]="filtro.filter">
+                </md-input-container>
+                <md-input-container flex class="push">
+                    <input mdInput placeholder="Descrição" [(ngModel)]="filtro.descricao">
+                </md-input-container>
+                <md-select flex class="push" placeholder="Prioridade" [(ngModel)]="filtro.prioridade">
+                    <md-option *ngFor="let prioridade of prioridades" [value]="prioridade.value">
+                        {{ prioridade.viewValue }}
+                    </md-option>
+                </md-select>
+                <md-select flex class="push" placeholder="Situação" [(ngModel)]="filtro.situacao">
+                    <md-option *ngFor="let situacao of situacoes" [value]="situacao.value">
+                        {{ situacao.viewValue }}
+                    </md-option>
+                </md-select>
+
+                <button md-raised-button class="push" (click)="filtrarTarefa(filtro)" color="primary">Filtrar</button>
+            </div>
+        </md-card>
+        <div layout="row" layout-align="center center">
+            <a class="push" md-icon-button mdTooltip="Criar tarefa">
+                <md-icon color="accent" class="md-48" [routerLink]="['cadastro']">add_circle</md-icon>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <!-- Aqui dentro, é meu content onde vou mostrar as cards -->
+
+    <!-- layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']"-->
+    <div layout-gm-sm="row">
+        <tarefa-card *ngFor="let tarefa of tarefas" [tarefa]="tarefa" (onDeleteTarefa)="removeTarefa(tarefa?.id)"></tarefa-card>
+    </div>
+</div>

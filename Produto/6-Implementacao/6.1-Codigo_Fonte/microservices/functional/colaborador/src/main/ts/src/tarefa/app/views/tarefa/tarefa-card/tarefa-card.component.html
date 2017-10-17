@@ -1,0 +1,50 @@
+<md-card *ngIf="tarefa">
+    <md-card-title layout-align="center center" class="truncate">{{tarefa.titulo}}</md-card-title>
+    <md-divider></md-divider>
+    <md-card-content>
+        Responsável: {{ tarefa?.donoTarefa.nome }}
+        <br> 
+        Data Inicial: {{ tarefa?.dataInicial | date: "dd/MM/yyyy" }}
+        <br> 
+        Prioriodade: {{ tarefa?.prioridade }} 
+        <br> 
+        Situação: {{ tarefa?.situacao }}
+        <br>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions>
+        <a *ngIf="canUpdateToEmExecucao(tarefa.situacao)"
+            md-icon-button mdTooltip="Iniciar tarefa"
+            (click)="openDialogIniciarConfirm()">
+            <md-icon>play_circle_outline</md-icon>
+        </a>
+        <a  md-icon-button mdTooltip="Editar tarefa"
+            [routerLink]="['editar', tarefa.id]">
+            <md-icon>mode_edit</md-icon>
+        </a>
+        <a  md-icon-button mdTooltip="Visualizar detalhes da tarefa"
+            [routerLink]="['detalhes', tarefa.id]">
+            <md-icon>search</md-icon>
+        </a>
+        <a *ngIf="canUpdateToInvalida(tarefa.situacao)"
+            md-icon-button mdTooltip="Invalidar Tarefa"
+            (click)="openDialogInvalidarConfirm()">
+            <md-icon>close</md-icon>
+        </a>
+        <a *ngIf="canUpdateToEmImpedimento(tarefa.situacao)" 
+            md-icon-button mdTooltip="Colocar tarefa em impedimento" 
+            (click)="openDialogImpedirConfirm()">
+            <md-icon>error_outline</md-icon>
+        </a>
+        <a *ngIf="canDelete(tarefa.situacao)"
+            md-icon-button mdTooltip="Exluir tarefa"
+            (click)="openDialogExcluirConfirm()">
+            <md-icon>delete</md-icon>
+        </a>
+        <a *ngIf="canUpdateToConcluida(tarefa.situacao)"
+            md-icon-button mdTooltip="Concluir tarefa" 
+            (click)="openDialogConcluirConfirm()">
+            <md-icon>check_circle</md-icon>
+        </a>
+    </md-card-actions>
+</md-card>

@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import '~@covalent/core/theming/all-theme';
+
+
+@include mat-core();
+
+$primary-color: mat-palette($mat-blue);
+$accent-color: mat-palette($mat-orange);
+$warn-color: mat-palette($mat-red);
+
+$theme-app: mat-light-theme($primary-color, $accent-color, $warn-color);
+
+@include angular-material-theme($theme-app);
+
+// .tarefa-form {
+//     min-width: 150px;
+//     max-width: 500px;
+//     width: 50%;
+//     margin: 0 auto; 
+// }
+  
+// .tarefa-full-width {
+//     width: 100%;
+//     margin: 0 auto; 
+// }
+
+.tarefa-background {
+    background: rgba(204, 201, 201, 0.25);
+}
+
+.truncate {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+md-content.content-tabs-button {
+    position: relative;
+    }
+    
+    md-content.content-tabs-button div.buttons {
+    position: absolute;
+    top: 12px;
+    right: 33px;
+    z-index: 999;
+    }
+    
+    md-content.content-tabs-button div.secondary-toolbar-buttons {
+    position: absolute;
+    top: 40px;
+    right: 33px;
+    z-index: 999;
+    }

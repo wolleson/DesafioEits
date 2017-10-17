@@ -1,0 +1,14 @@
+<h1 md-dialog-title>Deseja <b>invalidar</b> a tarefa?</h1>
+<div md-dialog-content>
+  <p>Comentário:</p>
+  <md-input-container>
+    <input mdInput tabindex="1" [(ngModel)]="data.comentario" [formControl]="comentarioFormControl">
+    <md-error *ngIf="comentarioFormControl.hasError('required')">
+      Comentário é <strong>necessário</strong>
+    </md-error>
+  </md-input-container>
+</div>
+<div md-dialog-actions>
+  <button md-button (click)="onYesClick()" tabindex="2" disabled="{{!data.comentario}}">Sim</button>
+  <button md-button (click)="onNoClick()" tabindex="-1">Não</button>
+</div>
