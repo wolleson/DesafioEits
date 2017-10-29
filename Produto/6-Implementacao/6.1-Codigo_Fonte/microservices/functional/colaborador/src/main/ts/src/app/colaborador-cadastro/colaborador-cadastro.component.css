@@ -1,0 +1,20 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 70%; 
+  }
+  
+  .buttunVoltar-container {
+    position:relative;
+    top: 150%;
+    left: 80%;
+  }
+
+  .buttunSalvar-container {
+    position:relative;
+  
+    left: 70%;
+  }

@@ -1,0 +1,36 @@
+  
+ 
+
+ <div>
+      <h4> Motivo da desativação? </h4>
+      <mat-radio-group [(ngModel)]="colaborador.motivoDesligamento">
+        <mat-radio-button value="Demissõa">Demissão</mat-radio-button>
+        <mat-radio-button value="Outro">Outro</mat-radio-button>
+      </mat-radio-group>
+  </div>
+
+  <br><br>
+  <div>
+      <mat-form-field>
+          <input matInput [matDatepicker]="dataDeDemissao" placeholder="Data de Demissao" >
+          <mat-datepicker-toggle matSuffix [for]="dataDeDemissao"></mat-datepicker-toggle>
+          <mat-datepicker #dataDeDemissao></mat-datepicker>
+        </mat-form-field>
+  </div>
+  
+
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Justificativa"  [(ngModel)]="colaborador.justificativa" ></textarea>
+  </mat-form-field>
+
+  <br><br>
+
+<div>
+
+    <mat-button-toggle class="buttunSalvar-container"  color = "accent" (click)="insertColaborador(colaborador)" >Salvar</mat-button-toggle>
+   </div>
+   <div>
+   <mat-button-toggle class="buttunSalvar-container"  (click)="onNoClick()"  >Cancelar</mat-button-toggle>
+
+</div>
+  

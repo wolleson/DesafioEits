@@ -34,7 +34,7 @@ import lombok.EqualsAndHashCode;
 	@Param(name="exclude", value="password"),
 	@Param(name="exclude", value="username")
 })
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true) 
 public class Usuario extends AbstractEntity implements UserDetails
 {
 	/**

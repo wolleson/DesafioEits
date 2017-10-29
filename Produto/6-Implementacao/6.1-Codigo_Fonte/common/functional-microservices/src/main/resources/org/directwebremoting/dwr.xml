@@ -40,9 +40,9 @@
     <converter id="currency" class="org.directwebremoting.convert.CurrencyConverter"/>
     
     <!-- customs -->
-    <converter id="bean" class="br.com.agenda.common.application.dwr.converter.HibernateBeanConverter"/>
-    <converter id="localDateTime" class="br.com.agenda.common.application.dwr.converter.LocalDateTimeConverter"/>
-    <converter id="wkt" class="br.com.agenda.common.application.dwr.converter.JTSWKTConverter"/>
+    <converter id="bean" class="br.com.colaborador.common.application.dwr.converter.HibernateBeanConverter"/>
+    <converter id="localDateTime" class="br.com.colaborador.common.application.dwr.converter.LocalDateTimeConverter"/>
+    <converter id="wkt" class="br.com.colaborador.common.application.dwr.converter.JTSWKTConverter"/>
   </init>
 
   <allow>

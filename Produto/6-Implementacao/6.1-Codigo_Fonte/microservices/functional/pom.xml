@@ -14,7 +14,7 @@
 
 	<modules>
 		<module>usuario</module>
-		<module>tarefa</module>
+		<module>colaborador</module>
 	</modules>
 	
 	<!-- Profiles -->

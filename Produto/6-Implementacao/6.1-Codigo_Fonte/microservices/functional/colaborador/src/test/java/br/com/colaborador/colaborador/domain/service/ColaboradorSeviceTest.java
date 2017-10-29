@@ -2,50 +2,327 @@ package br.com.colaborador.colaborador.domain.service;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.util.Assert;
 
 import br.com.colaborador.colaborador.domain.AbstractIntegrationTests;
 import br.com.colaborador.colaborador.domain.entity.Cargo;
+import br.com.colaborador.colaborador.domain.entity.Certificado;
 import br.com.colaborador.colaborador.domain.entity.Colaborador;
 import br.com.colaborador.colaborador.domain.entity.RegimeDoContrato;
 
 public class ColaboradorSeviceTest extends AbstractIntegrationTests{
-
+	
+	/*-------------------------------------------------------------------
+	 *				 		     ATTRIBUTES
+	 *-------------------------------------------------------------------*/
 	@Autowired
 	private ColaboradorService colaboradorService;
 
+	
+	
+	
+	/*-------------------------------------------------------------------
+	 *				 		     PassTest para o CRUD de Colaborador
+	 *-------------------------------------------------------------------*/
+	
+	
+	/**
+	 * 
+	 */
 	@Test
-//	@Sql({//
-//		"/dataset/tarefa/colaborador.sql"//
-//	})
-	public void insertColaborador() 
+	@Sql({//
+		"/dataset/colaborador/colaborador.sql"//
+	})
+	public void insertColaboradorPass() 
 	{
 		Colaborador colaborador = this.getColaborador();
 		Colaborador colaboradorSav = this.colaboradorService.insertColaborador(colaborador);
-		System.out.println(colaboradorSav.getNome()); 
 		Assert.notNull(colaboradorSav);
 	}
 
+	/**
+	 * 
+	 */
+	@Test
+	@Sql({//
+		"/dataset/colaborador/colaborador.sql"//
+	})
+	public void findColaboradorByIdPass() 
+	{
+		final Colaborador colaborador = this.colaboradorService.findColaboradorById(2);
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ colaborador.getNome());
+		Assert.notNull(colaborador);
+	}
+	
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void updateColaboradorPass() 
+	{
+		Colaborador colaboradorUpdate = this.colaboradorService.findColaboradorById(1);
+		colaboradorUpdate.setNome("Wolleson");
+		this.colaboradorService.updateColaborador(colaboradorUpdate);
+		assertEquals(colaboradorUpdate.getNome(), "Wolleson");
+	};
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteColaboradorPass() 
+	{
+		Colaborador colaborador = this.getColaborador();
+		Colaborador colaboradorSav = this.colaboradorService.insertColaborador(colaborador);
+		this.colaboradorService.deleteColaborador(colaboradorSav.getId());	
+		this.colaboradorService.findColaboradorById(colaboradorSav.getId());
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void uploadArquivoColaboradorPass() throws IOException {
+		Colaborador colaborador = this.getColaborador();
+		File fileTransfer= new File("src/test/resources/dataset/colaborador/teste.pdf"); 
+		this.colaboradorService.uploadArquivoColaborador(colaborador, fileTransfer);
+	}
+	
+	
+	/*-------------------------------------------------------------------
+	 *		FailTest para o CRUD de Colaborador
+	 *-------------------------------------------------------------------*/
+	
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void insertColaboradorFail() 
+	{
+		Colaborador colaborador = null;
+	    this.colaboradorService.insertColaborador(colaborador);
+	    
+	}
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void findColaboradorByIdFail() 
+	{
+		Long id = new Long(null);
+	     this.colaboradorService.findColaboradorById(id);
+	}
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void updateColaboradorFail() 
+	{
+		Colaborador colaborador = null;
+	   this.colaboradorService.updateColaborador(colaborador);
+	};
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteColaboradorFail() 
+	{
+		Long id = new Long(null);
+		this.colaboradorService.deleteColaborador(id);		
+	}
+	
+	
+	
+	/*-------------------------------------------------------------------
+	 *		  PassTest para o CRUD de Certificado
+	 *-------------------------------------------------------------------*/
+	
+	
+	/**
+	 * 
+	 */
+	@Test
+	@Sql({//
+		"/dataset/colaborador/certificado.sql"//
+	})
+	public void insertCertificadoPass() 
+	{
+		Certificado certifcado = this.getCertificado();
+		Certificado certifcadoSav = this.colaboradorService.insertCertificado(certifcado);
+		Assert.notNull(certifcadoSav);
+	}
+	
+	
+	/**
+	 * 
+	 */
+	@Test
+	@Sql({//
+		"/dataset/colaborador/certificado.sql"//
+	})
+	public void findCertificadoByIdPass()
+	{
+		final Certificado certificado = this.colaboradorService.findCertificadoById(2);
+		Assert.notNull(certificado);
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	@Sql({//
+		"/dataset/colaborador/certificado.sql"//
+	})
+	public void updateCertificadoPass() 
+	{
+	
+	    Certificado certificado = this.colaboradorService.findCertificadoById(2);
+		certificado.setTitulo("Updatetest");
+		Certificado certifcadoSav = this.colaboradorService.insertCertificado(certificado);
+		assertEquals(certifcadoSav.getTitulo(), "Updatetest");
+	}
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteCertificadoPass() 
+	{
+		Certificado certifcado = this.getCertificado();
+		Certificado certifcadoSav = this.colaboradorService.insertCertificado(certifcado);
+		this.colaboradorService.deleteCertificado(certifcadoSav.getId());
+		this.colaboradorService.findCertificadoById(certifcadoSav.getId());
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	public void uploadArquivoCertificadoPass() throws IOException {
+		Certificado certificado = this.getCertificado();
+		File fileTransfer= new File("src/test/resources/dataset/colaborador/teste.pdf"); 
+		this.colaboradorService.uploadArquivoCertificado(certificado, fileTransfer);
+	}
+	
+	
+	
+	/*-------------------------------------------------------------------
+	 *				 		   FailTest para o CRUD de Certificado
+	 *-------------------------------------------------------------------*/
+	
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void insertCertificadoFail() 
+	{
+		Certificado certificado  = null;
+		 this.colaboradorService.insertCertificado(certificado);
+	    
+	}
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void findCertificadoByIdFail() 
+	{
+		Long id = new Long(null);
+	   this.colaboradorService.findCertificadoById(id);
+	}
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void updateCerficidadoFail() 
+	{
+		Certificado certificado  = null;
+		 this.colaboradorService.updateCertificado(certificado);
+	};
+	
+	
+	/**
+	 * 
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void deleteCertificadoFail() 
+	{
+		Long id = new Long(null);
+		this.colaboradorService.deleteCertificado(id);		
+	}
+	
+	@Test
+	@Sql({//
+		"/dataset/colaborador/certificado.sql"//
+	})
+	public void listCertificadosByColaboradores() {
+		Long id = new Long(1);
+		Page<Certificado> certificados = this.colaboradorService.listCertificadosByColaboradores(id);
+		System.out.println(" -==-=-=-=-=-=-=" + certificados.getTotalPages()); 
+	}
+	
+	
+	
+	/*-------------------------------------------------------------------
+	 *		 Criando obejtos para os testes
+	 *-------------------------------------------------------------------*/
+	
+	
+	
+	/**
+	 * 
+	 */
 	public Colaborador getColaborador() 
 	{
-		LocalDate date = LocalDate.of(2015, 11, 12);
+		LocalDateTime date = LocalDateTime.now();
 		RegimeDoContrato regimeDoContrato = RegimeDoContrato.ESTAGIO;
 		Cargo cargo = Cargo.ARQUITETO;
-		byte z = 111;
+		byte[] bytes = new byte[4];
 		Colaborador colaborador = new Colaborador();
-		colaborador.setNome("teste");
+		colaborador.setNome("wolle");
 		colaborador.setSobrenome("teste2");
 		colaborador.setAtivo(true);
 		colaborador.setDataDeNascimento(date);
 		colaborador.setDataDeAdmissao(date);
 		colaborador.setRegimeDoContrato(regimeDoContrato);
 		colaborador.setCargo(cargo);
-		colaborador.setContrato(z);
+		colaborador.setContrato(bytes);
 		return colaborador;
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public Certificado getCertificado() 
+	{		
+	byte[] bytes = new byte[4];
+	LocalDate date = LocalDate.of(2015, 11, 12);
+	Certificado certificado = new Certificado();
+	Colaborador colaborador = new Colaborador();
+	colaborador = this.getColaborador();
+	colaborador = this.colaboradorService.insertColaborador(colaborador);
+	certificado.setTitulo("testeee");
+	certificado.setCertificado(bytes);
+	certificado.setDescricao("testetet");
+	certificado.setData(date);
+	certificado.setColaboradorId(colaborador);
+	return certificado;	
 	}
 }

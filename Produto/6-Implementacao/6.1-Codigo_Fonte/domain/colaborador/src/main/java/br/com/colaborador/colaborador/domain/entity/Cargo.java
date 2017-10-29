@@ -11,5 +11,4 @@ public enum Cargo {
 	UX,
 	GERENTE_DE_PROJETO,
 	AUXILIAR_ADMISTRATIVO
-	
 }

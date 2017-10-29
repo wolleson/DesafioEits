@@ -1,0 +1,30 @@
+<mat-card-title>Lista de Colaboradores</mat-card-title>
+
+<mat-button-toggle class="buttunVoltar-container" [routerLink]="['/cadastro-colaborador']" ><mat-icon>add_circle_outline</mat-icon></mat-button-toggle>
+
+
+<td-data-table
+[data]="colaboradores"
+[columns]="configWidthColumns"
+>
+
+<ng-template tdDataTableTemplate="acao"  let-row="row">
+<button mat-raised-button  [routerLink]="['/editar-colaborador', row.id]"> <mat-icon>edit</mat-icon></button>
+<button mat-raised-button  [routerLink]="['/detalhe-colaborador', row.id]"> <mat-icon>visibility</mat-icon></button>
+<button mat-raised-button  (click)="openDialog(row.id)" > <mat-icon>      delete</mat-icon></button>
+
+</ng-template>
+</td-data-table>
+<td-paging-bar #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)">
+  <span hide-xs>Rows per page:</span>
+  <mat-select [style.width.px]="1" [(ngModel)]="pageSize">
+    <mat-option *ngFor="let size of [1,2,200,500]" [value]="size">
+      {{size}}
+    </mat-option>
+  </mat-select>
+  {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+</td-paging-bar>
+
+
+
+  

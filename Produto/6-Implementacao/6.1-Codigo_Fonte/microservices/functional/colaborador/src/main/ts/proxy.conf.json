@@ -1,31 +1,31 @@
 {
-	"/tarefa": {
-		"target": "http://127.0.0.1:8080/tarefa",
-		"changeOrigin": true,
-		"secure": false,
-		"pathRewrite": {
-			"^/tarefa": ""
-		},
-		"logLevel": "debug"
-	},
-
-	"/broker": {
-		"target": "http://127.0.0.1:8080/tarefa/broker",
-		"changeOrigin": true,
-		"secure": false,
-		"pathRewrite": {
-			"^/broker": ""
-		},
-		"logLevel": "debug"
-	},
-
-	"/static": {
-		"target": "http://127.0.0.1:8080/tarefa/static",
-		"changeOrigin": true,
-		"secure": false,
-		"pathRewrite": {
-			"^/static": ""
-		},
-		"logLevel": "debug"
-	}
+    "/colaborador": {
+        "target": "http://127.0.0.1:8080/colaborador",
+        "changeOrigin": true,
+        "secure": false,
+        "pathRewrite": {
+            "^/colaborador": ""
+        },
+        "logLevel": "debug"
+    },
+ 
+    "/broker": {
+        "target": "http://127.0.0.1:8080/colaborador/broker",
+        "changeOrigin": true,
+        "secure": false,
+        "pathRewrite": {
+            "^/broker": ""
+        },
+        "logLevel": "debug"
+    },
+ 
+    "/static": {
+        "target": "http://127.0.0.1:8080/colaborador/static",
+        "changeOrigin": true,
+        "secure": false,
+        "pathRewrite": {
+            "^/static": ""
+        },
+        "logLevel": "debug"
+    }
 }

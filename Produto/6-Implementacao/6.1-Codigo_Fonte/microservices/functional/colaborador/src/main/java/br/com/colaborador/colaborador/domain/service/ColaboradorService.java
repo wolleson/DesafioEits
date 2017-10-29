@@ -1,23 +1,31 @@
 package br.com.colaborador.colaborador.domain.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.IOUtils;
 import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
-import br.com.agenda.usuario.application.restful.IUsuarioResource;
 import br.com.colaborador.colaborador.application.restful.IColaboradorResource;
 import br.com.colaborador.colaborador.domain.entity.Cargo;
 import br.com.colaborador.colaborador.domain.entity.Certificado;
 import br.com.colaborador.colaborador.domain.entity.Colaborador;
 import br.com.colaborador.colaborador.domain.entity.RegimeDoContrato;
+import br.com.colaborador.colaborador.domain.repository.ICertificadoRepository;
 import br.com.colaborador.colaborador.domain.repository.IColaboradorRepository;
+import br.com.colaborador.common.application.i18n.MessageSourceHolder;
 
 @Service
 @RemoteProxy
@@ -38,7 +46,8 @@ public class ColaboradorService implements  IColaboradorResource
 	@Autowired
 	private IColaboradorRepository colaboradorRepository; 
 
- 
+	@Autowired
+	private ICertificadoRepository certificadoRepository; 
 	
 	
 	/*-------------------------------------------------------------------
@@ -47,67 +56,163 @@ public class ColaboradorService implements  IColaboradorResource
 	
 	
 	
+	/**
+	 * @param id
+	 * @return Colaborador
+	 */
 	
-	@Override
 	public Colaborador findColaboradorById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
+		Colaborador colaborador = this.colaboradorRepository.findOne( id );
+		return 	colaborador;
+	}
+	
+	
+	public String teste()
+	{
+		return "Hello World";
 	}
 
-	@Override
+	
+	/**
+	 * @param id
+	 * @return Certificado
+	 */
+
 	public Certificado findCertificadoById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
+		return  this.certificadoRepository.findOne(id);	
 	}
+	
+	/**
+	 * @param Colaborador
+	 * @return Colaborador
+	  */
 
-	@Override
 	public Colaborador insertColaborador(Colaborador colaborador) {
-		return this.colaboradorRepository.save(colaborador);
+		Assert.notNull( colaborador, this.messageSource.getMessage( "colaborador.null", null, LocaleContextHolder.getLocale() ) );	  
+		colaborador.setAtivo(true);
+		Colaborador save = this.colaboradorRepository.save(colaborador);
+		return save;	
 	}
 
-	@Override
-	public Certificado insertCertificado(Certificado certifcado) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * @param Certificado
+	 * @return Certificado
+	  */
+	
+	public Certificado insertCertificado(Certificado certificado){
+		Assert.notNull( certificado, this.messageSource.getMessage( "certificado.null", null, LocaleContextHolder.getLocale() ) );
+		return this.certificadoRepository.save(certificado);
 	}
 
-	@Override
+	
+	/**
+	 * @param Colaborador
+	 * @return Colaborador
+	  */
+
 	public Colaborador updateColaborador(Colaborador colaborador) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Assert.notNull( colaborador, this.messageSource.getMessage( "colaborador.null", null, LocaleContextHolder.getLocale() ) );
+		return this.colaboradorRepository.save(colaborador);
+	};
 
-	@Override
+	
+	/**
+	 * @param Certificado
+	 * @return Certificado
+	  */
+	
 	public Certificado updateCertificado(Certificado certificado) {
-		// TODO Auto-generated method stub
-		return null;
+		Assert.notNull( certificado, this.messageSource.getMessage( "certificado.null", null, LocaleContextHolder.getLocale() ) );
+		return this.certificadoRepository.save(certificado);
 	}
 
-	@Override
+	
+	
+	/**
+	 * @param id
+	 */
+
 	public void deleteColaborador(Long id) {
-		// TODO Auto-generated method stub
-		
+		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
+		this.colaboradorRepository.delete(id);	
 	}
 
-	@Override
+	
+	/**
+	 * @param id
+	 */
+
 	public void deleteCertificado(Long id) {
-		// TODO Auto-generated method stub
+		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
+		this.certificadoRepository.delete(id);
 		
 	}
 
-	@Override
+	
+	
+	/**
+	 * @param Certificado, File
+	 * 
+	 */
+	public void uploadArquivoCertificado(Certificado certificado, File file) throws IOException 
+	 {
+	 Assert.notNull( file, MessageSourceHolder.getMessage("Favor anexar um arquivo para registrar") );
+	 FileInputStream fis = new FileInputStream(file);
+	 certificado.setCertificado(IOUtils.toByteArray( fis)) ;
+	 this.insertCertificado(certificado); 
+	 }
+	
+	
+	/**
+	 * @param Colaborador, File
+	 * 
+	 */
+	public void uploadArquivoColaborador(Colaborador colaborador, File file) throws IOException 
+	 {
+	 Assert.notNull( file, MessageSourceHolder.getMessage("Favor anexar um arquivo para registrar") );
+	 FileInputStream fis = new FileInputStream(file);
+	 colaborador.setContrato(IOUtils.toByteArray( fis)) ;
+	 this.insertColaborador(colaborador); 
+	 }
+	
+	
+	/**
+	 * 
+	 */
+	
 	public Page<Colaborador> listCertificadosByFilters(String filter, String titulo, String descricao, LocalDate data,
 			PageRequest pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public Page<Colaborador> listColaboradoresByFilters(String filter, String nome, String nomesobre, Cargo cargo,
+	
+	/**
+	 * 
+	 */
+
+	public Page<Colaborador> listColaboradoresByFilters(String filter, String nome, String sobrenome, Cargo cargo,
 			RegimeDoContrato regimeContrato, Boolean ativo, LocalDate dataAdmissao, LocalDate dataDemissao,
 			PageRequest pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		Page<Colaborador> colaboradores = this.colaboradorRepository.listByFilters(filter, nome, sobrenome, cargo, regimeContrato, ativo, dataAdmissao, dataDemissao, pageable);
+		return colaboradores;
 	}
-
+	
+	public Page<Colaborador> listColaboradorByNome()
+	{
+		Direction asc;
+		asc = Direction.ASC;
+		PageRequest pageable = new PageRequest(0, 5, asc, "nome");
+		return this.colaboradorRepository.listColaboradorByFilters("joam", pageable);
+	}
+	
+	public Page<Certificado> listCertificadosByColaboradores(Long id)
+	{
+		Direction asc;
+		asc = Direction.ASC;
+		PageRequest pageable = new PageRequest(0, 5, asc, "titulo");
+		return this.certificadoRepository.listCertificadoByColaboradores(id , pageable);
+	}
 }
