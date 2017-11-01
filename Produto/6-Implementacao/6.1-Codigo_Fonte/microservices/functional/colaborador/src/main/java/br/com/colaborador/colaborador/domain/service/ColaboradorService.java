@@ -4,17 +4,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
 import org.apache.commons.io.IOUtils;
 import org.directwebremoting.annotations.RemoteProxy;
+import org.directwebremoting.io.FileTransfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -169,50 +173,41 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @param Colaborador, File
 	 * 
 	 */
-	public void uploadArquivoColaborador(Colaborador colaborador, File file) throws IOException 
+	public void uploadArquivoColaborador(Colaborador colaborador, FileTransfer fileTransfer) throws IOException 
 	 {
-	 Assert.notNull( file, MessageSourceHolder.getMessage("Favor anexar um arquivo para registrar") );
-	 FileInputStream fis = new FileInputStream(file);
-	 colaborador.setContrato(IOUtils.toByteArray( fis)) ;
+		System.out.println("a-a-a-a-a--a-a " + fileTransfer.getFilename());
+	 Assert.notNull( fileTransfer, MessageSourceHolder.getMessage("Favor anexar um arquivo para registrar") );
+	 colaborador.setContrato(IOUtils.toByteArray( fileTransfer.getInputStream()));
 	 this.insertColaborador(colaborador); 
 	 }
 	
 	
-	/**
-	 * 
-	 */
 	
-	public Page<Colaborador> listCertificadosByFilters(String filter, String titulo, String descricao, LocalDate data,
-			PageRequest pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	
-	/**
-	 * 
-	 */
-
-	public Page<Colaborador> listColaboradoresByFilters(String filter, String nome, String sobrenome, Cargo cargo,
-			RegimeDoContrato regimeContrato, Boolean ativo, LocalDate dataAdmissao, LocalDate dataDemissao,
+	public Page<Colaborador> listColaboradoresByFilters( String nome, String sobrenome, Cargo cargo,
+			RegimeDoContrato regimeContrato, Boolean ativo, LocalDateTime dataAdmissao,LocalDateTime dataDemissao,
 			PageRequest pageable) {
-		Page<Colaborador> colaboradores = this.colaboradorRepository.listByFilters(filter, nome, sobrenome, cargo, regimeContrato, ativo, dataAdmissao, dataDemissao, pageable);
+		Page<Colaborador> colaboradores = this.colaboradorRepository.listByFilters( nome, sobrenome, cargo, regimeContrato, ativo, dataAdmissao, dataDemissao, pageable);
 		return colaboradores;
 	}
 	
-	public Page<Colaborador> listColaboradorByNome()
-	{
-		Direction asc;
-		asc = Direction.ASC;
-		PageRequest pageable = new PageRequest(0, 5, asc, "nome");
-		return this.colaboradorRepository.listColaboradorByFilters("joam", pageable);
+	public  Page<Colaborador> listAllColaboradore(PageRequest pageable){
+		Page<Colaborador> colaboradores = this.colaboradorRepository.findAll(pageable);
+		return colaboradores;
 	}
 	
-	public Page<Certificado> listCertificadosByColaboradores(Long id)
+	public Page<Certificado> listCertificadosByColaboradores(Long id, PageRequest pageable)
 	{
-		Direction asc;
-		asc = Direction.ASC;
-		PageRequest pageable = new PageRequest(0, 5, asc, "titulo");
 		return this.certificadoRepository.listCertificadoByColaboradores(id , pageable);
 	}
+	
+	
+	public Page<Certificado> filterCertificados( String titulo, String descricao, LocalDateTime data, PageRequest pageable )
+	{
+		return this.certificadoRepository.listByFiltersCertificado(titulo, descricao, data, pageable);
+	}
+	
+	
+	
+	
 }

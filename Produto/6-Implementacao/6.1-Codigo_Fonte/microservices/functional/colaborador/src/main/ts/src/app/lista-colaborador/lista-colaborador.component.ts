@@ -30,8 +30,9 @@ import { Data } from '@angular/router';
 export class ListaColaboradorComponent {
   displayedColumns = ['Nome'];
   public colaboradores: any[] = [];
-  selectable: any;
-
+  filtro: any = {};
+  
+// colunas da tabela
   configWidthColumns: ITdDataTableColumn[] = [
     { name: 'nome',  label: 'Nome', width: 150 },
     { name: 'sobrenome',  label: 'Sobrenome', width: 150 },
@@ -41,75 +42,60 @@ export class ListaColaboradorComponent {
     { name: 'dataDeAdmissao',  label: 'Admissão', width: 150  },
     { name: 'dataDeDemissao',  label: 'Demissão', width: 150 },
     { name: 'acao',  label: 'Ações', width: 350 },
+  ];
+
+  cargo = [
+    {value: 'ENGENHEIRO_SOFTWARE', viewValue: 'Engenheiro de Software'},
+    {value: 'SUPORTE', viewValue: 'Suporte'},
+    {value: 'ARQUITETO', viewValue: 'Arquiteto'},
+    {value: 'UX', viewValue: 'UX'},
+    {value: 'GERENTE_DE_PROJETO', viewValue: 'Gerente de Projeto'},
+    {value: 'AUXILIAR_ADMISTRATIVO', viewValue: 'Auxiliar Admistrativo'},
 
   ];
-  filteredData: any[] = this.colaboradores;
-  filteredTotal: number = this.colaboradores.length;
 
-  searchTerm: string = '';
-  fromRow: number = 1;
-  currentPage: number = 1;
-  pageSize: number = 1;
-  sortBy: string = 'first_name';
-  selectedRows: any[] = [];
-  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+  regimeContrato = [
+    {value: 'PJ', viewValue: 'Pj'},
+    {value: 'CLT', viewValue: 'Clt'},
+    {value: 'ESTAGIO', viewValue: 'Estagio'},
+    {value: 'BOLSISTA', viewValue: 'Bolsista'},
+  ];
 
-  ngOnInit() {
-  
-    
-      Broker.of("colaboradorService").promise("listColaboradorByNome")
-      .then((result) => 
-      {
-        this.colaboradores = result.content;
-       
-      })
-      .catch((message) =>console.log(message));
+ sort =  {//Sort
+    orders: [
+        { direction: 'DESC', property: 'nome', nullHandlingHint: null }
+    ]
+};
 
-      this.filter();
-      }
+
+// Objeto pageable
+  pageable = {
+    page: 0,
+    size: 5,
+    sort: this.sort
+   
+};
+
+  ngOnInit()
+   {
+  this.listAllColaboradores(); 
+    }
 
       constructor(private _dataTableService: TdDataTableService,private _dialogService: TdDialogService, public dialog: MatDialog) {}
    
       
-        sort(sortEvent: ITdDataTableSortChangeEvent): void {
-          this.sortBy = sortEvent.name;
-          this.sortOrder = sortEvent.order;
-          this.filter();
-        }
-      
-        search(searchTerm: string): void {
-          this.searchTerm = searchTerm;
-          this.filter();
-        }
-      
-        page(pagingEvent: IPageChangeEvent): void {
-          this.fromRow = pagingEvent.fromRow;
-          this.currentPage = pagingEvent.page;
-          this.pageSize = pagingEvent.pageSize;
-          this.filter();
-        }
-      
-        filter(): void {
-          let newData: any[] = this.colaboradores;
-          let excludedColumns: string[] = this. configWidthColumns
-          .filter((column: ITdDataTableColumn) => {
-            return ((column.filter === undefined && column.hidden === true) ||
-                    (column.filter !== undefined && column.filter === false));
-          }).map((column: ITdDataTableColumn) => {
-            return column.name;
-          });
-          newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
-          this.filteredTotal = newData.length;
-          newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
-          newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-          this.filteredData = newData;
-        }
-      
+  
+      // captura eventos da paginação
+  page(pagingEvent: IPageChangeEvent): void 
+    { 
+        this.pageable.page = pagingEvent.page -1;
+        this.listAllColaboradores();
+    }
 
 
-
-  openDialog(ide): void {
-
+// abrir op dialog para desativar colaborador
+  openDialog(ide): void
+   {
     let dialogRef = this.dialog.open(DesativaColaboradorComponent, {
       width: '450px',
       height:'450px',
@@ -117,9 +103,58 @@ export class ListaColaboradorComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
      console.log("fecho");
-      
     });
   }
+
+
+
+  // filtro
+  public filterColaboradores= function()
+  {
+    console.log( this.filtro.nome)
+    Broker.of("colaboradorService").promise("listColaboradoresByFilters", this.filtro.nome, this.filtro.sobrenome,this.filtro.cargo,
+    this.filtro.regimeContrato, this.filtro.ativo, this.filtro.dataAdmissao,  this.filtro.dataDemissao, this.pageable)
+    .then((result) => 
+    {
+      this.colaboradores = result.content;
+    
+    })
+    .catch((message) =>console.log(message));
+    console.log(this.colaboradores)
+  }
+
+
+
+
+
+// busca todos colaboradores
+public listAllColaboradores()
+{
+  Broker.of("colaboradorService").promise("listAllColaboradore", this.pageable)
+  .then((result) => 
+  {
+    this.colaboradores = result.content;
+    console.log(this.colaboradores.length)
+  })
+  .catch((message) =>console.log(message));
+}
+
+
+public exibeAtivoColaborador(): void{
+  let i:0;
+  for( i= 0 ; i < this.colaboradores.length;i++){
+
+    if(this.colaboradores[i])  
+      {
+       console.log("teste")
+      }
+  }
+
+
+}
+
+
+
 
 }
 

@@ -1,30 +1,72 @@
+
 <mat-card-title>Lista de Colaboradores</mat-card-title>
+<mat-button-toggle class="buttunVoltar-container" (click)=" filterColaboradores()" ><mat-icon>search</mat-icon></mat-button-toggle>
+    <br> <br>
+<div>
+<mat-form-field >
+      <input matInput placeholder=" Pesquisa pelo nome"  [(ngModel)]="filtro.nome">
+    </mat-form-field>
 
-<mat-button-toggle class="buttunVoltar-container" [routerLink]="['/cadastro-colaborador']" ><mat-icon>add_circle_outline</mat-icon></mat-button-toggle>
+    <mat-form-field >
+        <input matInput placeholder=" Pesquisa pelo Sobrenome"  [(ngModel)]="filtro.sobrenome">
+      </mat-form-field>
+  
 
+    <mat-form-field>
+        <mat-select placeholder=" Pesquisa por Cargo" [(ngModel)]="filtro.cargo">
+            <mat-option *ngFor="let cargo of cargo" [value]="cargo.value">
+                {{ cargo.viewValue }}
+              </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Pesquisa por Regime do contrato" [(ngModel)]="filtro.regimeContrato">
+              <mat-option *ngFor="let regimeContrato of regimeContrato" [value]="regimeContrato.value">
+                  {{ regimeContrato.viewValue }}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+        <mat-select placeholder="Ativo" [(ngModel)]="filtro.ativo">
+            <mat-option value="true">Ativo</mat-option>
+            <mat-option value="false"> Desativado</mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+
+      
+            <mat-form-field>
+              <input matInput [matDatepicker]="dataDeDemissao"   placeholder="Data de Demissão"[(ngModel)]="filtro.dataDemissao" >
+              <mat-datepicker-toggle matSuffix [for]="dataDeDemissao"></mat-datepicker-toggle>
+              <mat-datepicker #dataDeDemissao></mat-datepicker>
+            </mat-form-field>
+          
+       
+          <mat-form-field>
+            <input matInput [matDatepicker]="dataDeAdmissao"   placeholder="Data de Admissão" [(ngModel)]="filtro.dataAdmissao">
+            <mat-datepicker-toggle matSuffix [for]="dataDeAdmissao"></mat-datepicker-toggle>
+            <mat-datepicker #dataDeAdmissao></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+
+
+        <br><br><br>
+
+        <button mat-raised-button   class="buttunAdd-container" color="warn" [routerLink]="['/cadastro-colaborador']" ><mat-icon>add_circle_outline</mat-icon></button>
 
 <td-data-table
 [data]="colaboradores"
-[columns]="configWidthColumns"
->
-
+[columns]="configWidthColumns">
 <ng-template tdDataTableTemplate="acao"  let-row="row">
 <button mat-raised-button  [routerLink]="['/editar-colaborador', row.id]"> <mat-icon>edit</mat-icon></button>
 <button mat-raised-button  [routerLink]="['/detalhe-colaborador', row.id]"> <mat-icon>visibility</mat-icon></button>
 <button mat-raised-button  (click)="openDialog(row.id)" > <mat-icon>      delete</mat-icon></button>
-
 </ng-template>
 </td-data-table>
-<td-paging-bar #pagingBar [pageSize]="pageSize" [total]="filteredTotal" (change)="page($event)">
-  <span hide-xs>Rows per page:</span>
-  <mat-select [style.width.px]="1" [(ngModel)]="pageSize">
-    <mat-option *ngFor="let size of [1,2,200,500]" [value]="size">
-      {{size}}
-    </mat-option>
-  </mat-select>
-  {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
-</td-paging-bar>
+<td-paging-bar #pagingBar [firstLast]="firstLast" [pageSize]="5" [total]="100" (change)="page($event)">
+    {{pagingBar.range}} of {{pagingBar.total}}
+  </td-paging-bar>
 
-
-
-  

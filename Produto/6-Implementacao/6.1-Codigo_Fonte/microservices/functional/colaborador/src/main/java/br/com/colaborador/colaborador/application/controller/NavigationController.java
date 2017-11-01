@@ -21,6 +21,6 @@ public class NavigationController
 	@RequestMapping("/")
 	public ModelAndView home()
 	{
-		return new ModelAndView( "modules/tarefa/index" );
+		return new ModelAndView( "modules/colaborador/index" );
 	}
 }

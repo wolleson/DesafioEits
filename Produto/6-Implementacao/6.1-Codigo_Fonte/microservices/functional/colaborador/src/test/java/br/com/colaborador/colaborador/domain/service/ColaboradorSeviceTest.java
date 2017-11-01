@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.directwebremoting.io.FileTransfer;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -91,13 +92,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	/**
 	 * 
 	 */
-	@Test
-	public void uploadArquivoColaboradorPass() throws IOException {
-		Colaborador colaborador = this.getColaborador();
-		File fileTransfer= new File("src/test/resources/dataset/colaborador/teste.pdf"); 
-		this.colaboradorService.uploadArquivoColaborador(colaborador, fileTransfer);
-	}
-	
+
 	
 	/*-------------------------------------------------------------------
 	 *		FailTest para o CRUD de Colaborador
@@ -211,12 +206,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	/**
 	 * 
 	 */
-	@Test
-	public void uploadArquivoCertificadoPass() throws IOException {
-		Certificado certificado = this.getCertificado();
-		File fileTransfer= new File("src/test/resources/dataset/colaborador/teste.pdf"); 
-		this.colaboradorService.uploadArquivoCertificado(certificado, fileTransfer);
-	}
+
 	
 	
 	
@@ -273,8 +263,8 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	})
 	public void listCertificadosByColaboradores() {
 		Long id = new Long(1);
-		Page<Certificado> certificados = this.colaboradorService.listCertificadosByColaboradores(id);
-		System.out.println(" -==-=-=-=-=-=-=" + certificados.getTotalPages()); 
+	//	Page<Certificado> certificados = this.colaboradorService.listCertificadosByColaboradores(id);
+   //   System.out.println(" -==-=-=-=-=-=-=" + certificados.getTotalPages()); 
 	}
 	
 	
@@ -313,7 +303,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	public Certificado getCertificado() 
 	{		
 	byte[] bytes = new byte[4];
-	LocalDate date = LocalDate.of(2015, 11, 12);
+	LocalDateTime date = LocalDateTime.now();
 	Certificado certificado = new Certificado();
 	Colaborador colaborador = new Colaborador();
 	colaborador = this.getColaborador();

@@ -36,7 +36,7 @@ INSERT INTO colaborador.colaborador(
             id, atualizacao, criacao, versao, ativo, cargo, contrato, data_de_admissao, 
             data_de_demissao, data_de_nascimento, justificativa, motivo_desligamento, 
             nome, numero_carteira_trabalho, regime_do_contrato, sobrenome)
-    VALUES (1, now(),now(), 2, true, 2, null, '2017-03-10',null,'2017-03-10','nada','nada' 
+    VALUES (1, now(),now(), 2, true, 2, null, '2017-03-10','2017-03-10','2017-03-10','nada','nada' 
             ,'joam', 111,1, 'momo');
 
             

@@ -1,0 +1,17 @@
+  
+  .buttunVoltar {
+    position:relative;
+    top: 150%;
+    left: 80%;
+  }
+  .tudo {
+    min-height: 100%;
+
+    }
+
+    .buttunAdd-container {
+      position:relative;
+      top: 150%;
+      left: 80%;
+      background:slateblue;
+    }

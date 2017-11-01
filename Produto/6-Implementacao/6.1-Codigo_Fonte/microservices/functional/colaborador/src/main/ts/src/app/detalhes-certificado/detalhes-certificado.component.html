@@ -1,11 +1,11 @@
 
 <h3>Detalhes do certificado</h3>
 <br> <br>
-<p>Titulo: {{certificado.titulo}} </p>
+<p>Titulo: {{certificado?.titulo}} </p>
 
-<p>Data: {{certificado.data}}</p>
+<p>Data: {{certificado?.data}}</p>
 
-<p>Descrição: {{certificado.descricao}}</p>
+<p>Descrição: {{certificado?.descricao}}</p>
 
-
-<button mat-raised-button  (click)="onNoClick()" > <mat-icon>      delete</mat-icon></button>
+<br><br><br>
+<button mat-raised-button  (click)="onNoClick()" > Fechar </button>

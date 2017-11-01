@@ -1,36 +1,37 @@
   
- 
+<div class="example-container">
 
  <div>
-      <h4> Motivo da desativação? </h4>
-      <mat-radio-group [(ngModel)]="colaborador.motivoDesligamento">
+  <mat-card-title>Desativação de Colaborador</mat-card-title>
+
+
+  <mat-card-subtitle>Motivo da desativação?</mat-card-subtitle>
+     <mat-radio-group [(ngModel)]="motivo" placeholder="Data de Demissao">
         <mat-radio-button value="Demissõa">Demissão</mat-radio-button>
         <mat-radio-button value="Outro">Outro</mat-radio-button>
       </mat-radio-group>
   </div>
 
+
   <br><br>
   <div>
       <mat-form-field>
-          <input matInput [matDatepicker]="dataDeDemissao" placeholder="Data de Demissao" >
+          <input matInput [matDatepicker]="dataDeDemissao" placeholder="Data de Demissao"  [(ngModel)]="dataDemissao" >
           <mat-datepicker-toggle matSuffix [for]="dataDeDemissao"></mat-datepicker-toggle>
           <mat-datepicker #dataDeDemissao></mat-datepicker>
         </mat-form-field>
   </div>
   
 
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Justificativa"  [(ngModel)]="colaborador.justificativa" ></textarea>
+  <mat-form-field >
+    <textarea matInput placeholder="Justificativa"  [(ngModel)]="justificatica" rows="5" cols="60"></textarea>
   </mat-form-field>
+
 
   <br><br>
 
 <div>
-
+    <button mat-raised-button color="warn" class="buttunSalvar-container"  (click)="onNoClick()"  >Cancelar</button>
     <mat-button-toggle class="buttunSalvar-container"  color = "accent" (click)="insertColaborador(colaborador)" >Salvar</mat-button-toggle>
-   </div>
-   <div>
-   <mat-button-toggle class="buttunSalvar-container"  (click)="onNoClick()"  >Cancelar</mat-button-toggle>
-
 </div>
-  
+</div>

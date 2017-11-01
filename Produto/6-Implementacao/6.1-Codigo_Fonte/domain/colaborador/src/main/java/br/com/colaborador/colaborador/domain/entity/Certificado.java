@@ -1,7 +1,8 @@
 package br.com.colaborador.colaborador.domain.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,7 +53,7 @@ public class Certificado extends AbstractEntity implements Serializable
 	 */
 	@NotNull(message = "Informe a data inicial.")
 	@Column(nullable = false)
-	private LocalDate data;
+	private LocalDateTime data;
 	
 	/**
 	 * Byte certificado
@@ -94,7 +95,7 @@ public class Certificado extends AbstractEntity implements Serializable
 	{
 		Assert.isTrue( 
 				(
-					this.data.isBefore(LocalDate.now())  
+					this.data.isBefore(LocalDateTime.now())  
 				), 
 				"Data invalida "
 			); 

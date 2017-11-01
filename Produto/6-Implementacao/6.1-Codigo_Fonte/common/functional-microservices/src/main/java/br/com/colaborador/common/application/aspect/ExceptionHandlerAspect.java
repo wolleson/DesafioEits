@@ -172,7 +172,8 @@ public class ExceptionHandlerAspect
 		{
 			return;
 		}
-
+       System.out.println(exception.getCause()
+    		   );
 		if ( exception.getCause() instanceof SQLGrammarException )
 		{
 			final SQLGrammarException cause = (SQLGrammarException) exception.getCause();

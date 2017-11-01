@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import { CovalentFileModule } from '@covalent/core';
 import { AppComponent } from './app.component';
 import { ColaboradorCadastroComponent } from './colaborador-cadastro/colaborador-cadastro.component';
 import { appRoutingProviders, RoutingModule } from './routing.module';
@@ -52,6 +52,7 @@ import { DesativaColaboradorComponent } from './dialog/desativa-colaborador/desa
 import { DetalhesColaboradorComponent } from './detalhes-colaborador/detalhes-colaborador.component';
 import { CertificadoCadastroComponent } from './certificado-cadastro/certificado-cadastro.component';
 import { DetalhesCertificadoComponent } from './detalhes-certificado/detalhes-certificado.component';
+import { CertificadoEditarComponent } from './certificado-editar/certificado-editar.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,8 @@ import { DetalhesCertificadoComponent } from './detalhes-certificado/detalhes-ce
     DetalhesColaboradorComponent,
     CertificadoCadastroComponent,
     DetalhesCertificadoComponent,
+    CertificadoEditarComponent,
+   
 
     
   ],
@@ -110,6 +113,7 @@ import { DetalhesCertificadoComponent } from './detalhes-certificado/detalhes-ce
     CovalentDialogsModule,
     RoutingModule,
     CovalentLayoutModule,
+    CovalentFileModule
     
     
   ],

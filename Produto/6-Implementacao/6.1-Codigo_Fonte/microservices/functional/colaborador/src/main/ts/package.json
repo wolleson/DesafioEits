@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "mavenbuild": "ng build --base-href /colaborador/",
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
@@ -24,7 +25,6 @@
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
     "@covalent/core": "^1.0.0-beta.8-1",
-    "@covalent/file-upload": "^0.9.1",
     "core-js": "^2.4.1",
     "eits-ng2": "1.1.4",
     "rxjs": "^5.4.2",

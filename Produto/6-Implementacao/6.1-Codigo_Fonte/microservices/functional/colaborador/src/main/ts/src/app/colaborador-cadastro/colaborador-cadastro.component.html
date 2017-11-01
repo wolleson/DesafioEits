@@ -3,42 +3,37 @@
  
 <mat-button-toggle class="buttunVoltar-container" [routerLink]="['']" >Voltar</mat-button-toggle>
 
-
-
-
 <div class="example-container">
-
-
   
+      
   <mat-form-field>
     <input matInput #message maxlength="256" class = "input-conf" required [errorStateMatcher]="ColaboradorCadastroComponent"    placeholder="Nome" [(ngModel)]="colaborador.nome">
     <mat-error>Nome é obrigatório </mat-error>
     <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
   </mat-form-field>
 
- 
-
   <mat-form-field>
     <input matInput placeholder="Sobrenome" required [errorStateMatcher]="ColaboradorCadastroComponent" [(ngModel)]="colaborador.sobrenome">
     <mat-error>Sobrenome é obrigatório </mat-error>
   </mat-form-field>
 
-
+<div>
   <mat-form-field>
     <input matInput [matDatepicker]="dataDeNascimento" required [errorStateMatcher]="ColaboradorCadastroComponent"  placeholder="Data de Nascimento"[(ngModel)]="colaborador.dataDeNascimento" >
     <mat-datepicker-toggle matSuffix [for]="dataDeNascimento"></mat-datepicker-toggle>
-    <mat-error>Sobrenome é obrigatório </mat-error>
+    <mat-error>Data de Nascimento é obrigatório </mat-error>
     <mat-datepicker #dataDeNascimento></mat-datepicker>
- 
   </mat-form-field>
+</div>
 
+<div>
   <mat-form-field>
     <input matInput [matDatepicker]="dataDeAdmissao"  required [errorStateMatcher]="ColaboradorCadastroComponent" placeholder="Data de Admissão" [(ngModel)]="colaborador.dataDeAdmissao">
     <mat-datepicker-toggle matSuffix [for]="dataDeAdmissao"></mat-datepicker-toggle>
-
     <mat-datepicker #dataDeAdmissao></mat-datepicker>
-    <mat-error>Sobrenome é obrigatório </mat-error>
+    <mat-error>Data de Admissão é obrigatório </mat-error>
   </mat-form-field>
+</div>
 
   <mat-form-field>
     <input matInput placeholder="Número da carteira de Trabalho" [(ngModel)]="colaborador.numeroCarteiraTrabalho" >
@@ -48,22 +43,25 @@
 
   <mat-form-field>
     <mat-select placeholder="Cargo" [(ngModel)]="colaborador.cargo" required [errorStateMatcher]="ColaboradorCadastroComponent" >
-      <mat-option value="SUPORTE">SUPORTE</mat-option>
+        <mat-option *ngFor="let cargo of cargo" [value]="cargo.value">
+            {{ cargo.viewValue }}
+          </mat-option>
     </mat-select>
-    <mat-error>Sobrenome é obrigatório </mat-error>
+    <mat-error>Cargo é obrigatório </mat-error>
   </mat-form-field>
 
   
   <mat-form-field>
     <mat-select placeholder="Regime do contrato" [(ngModel)]="colaborador.regimeDoContrato" required [errorStateMatcher]="ColaboradorCadastroComponent" >
-      <mat-option value="BOLSISTA">BOLSISTA</mat-option>
+        <mat-option *ngFor="let regimeContrato of regimeContrato" [value]="regimeContrato.value">
+            {{ regimeContrato.viewValue }}
+        </mat-option>
     </mat-select>
-    <mat-error>Sobrenome é obrigatório </mat-error>
+    <mat-error>Regime do contrato é obrigatório </mat-error>
   </mat-form-field>
 
-
 <div >
-  <br>  <br>  <br>
-  <mat-button-toggle  data-ng-submit="" class="buttunSalvar-container"  color = "accent" (click)="insertColaborador(colaborador)" >Salvar</mat-button-toggle>
+  <br>  <br>  
+  <mat-button-toggle  class="buttunSalvar-container"  color = "accent" (click)="insertColaborador(colaborador)" >Salvar</mat-button-toggle>
 </div>
 </div>

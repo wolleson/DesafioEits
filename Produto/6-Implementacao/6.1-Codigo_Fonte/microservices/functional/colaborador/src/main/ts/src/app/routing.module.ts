@@ -5,7 +5,7 @@ import { ListaColaboradorComponent } from './lista-colaborador/lista-colaborador
 import { DetalhesColaboradorComponent } from './detalhes-colaborador/detalhes-colaborador.component';
 import { CertificadoCadastroComponent } from './certificado-cadastro/certificado-cadastro.component';
 import { DetalhesCertificadoComponent } from './detalhes-certificado/detalhes-certificado.component';
-
+import { CertificadoEditarComponent } from './certificado-editar/certificado-editar.component';
 
 
 const routes: Routes = [
@@ -13,8 +13,7 @@ const routes: Routes = [
     { path: 'editar-colaborador/:id', component: ColaboradorCadastroComponent }, 
     { path: 'detalhe-colaborador/:id', component:  DetalhesColaboradorComponent}, 
     { path: 'cadastro-certificado/:id', component: CertificadoCadastroComponent}, 
-    { path: 'editar-certificado/:id', component: CertificadoCadastroComponent}, 
-  
+    { path: 'editar-certificado/:id', component:  CertificadoEditarComponent}, 
     { path: '', component: ListaColaboradorComponent },]
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });

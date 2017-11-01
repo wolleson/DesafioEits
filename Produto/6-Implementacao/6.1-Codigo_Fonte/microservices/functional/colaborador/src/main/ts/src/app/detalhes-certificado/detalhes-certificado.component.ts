@@ -12,16 +12,15 @@ export class DetalhesCertificadoComponent implements OnInit {
  
  certificado: any;
   ngOnInit(): void {
-    throw new Error("Method not implemented.");
+  
   }
-
-
 
   onNoClick(){
-    console.log("oi");
     this.dialogRef.close("fecha"); 
-
   }
+
+
+// contrutor recebe id pelo router, busca o certificado pelo id
 
   constructor(public router: Router, public activatedRouter: ActivatedRoute, public dialogRef: MatDialogRef<DetalhesCertificadoComponent>,
   @Inject(MAT_DIALOG_DATA) public data : any) 

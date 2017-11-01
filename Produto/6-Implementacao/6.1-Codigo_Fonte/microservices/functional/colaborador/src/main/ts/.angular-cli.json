@@ -6,7 +6,8 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "../resources/META-INF/resources/modules/colaborador",
+      "deployUrl": "modules/colaborador/",
       "assets": [
         "assets",
         "favicon.ico"

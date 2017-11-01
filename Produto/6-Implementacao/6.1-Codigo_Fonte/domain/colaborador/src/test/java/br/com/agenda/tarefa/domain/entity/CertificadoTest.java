@@ -1,6 +1,8 @@
 package br.com.agenda.tarefa.domain.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 import org.junit.Test;
 
@@ -12,7 +14,7 @@ public class CertificadoTest {
 	public void validaDataPass() 
 	{
 		final Certificado certificado = new Certificado();
-		LocalDate date = LocalDate.of(2000, 11, 12);
+		LocalDateTime  date = LocalDateTime.of(2000, Month.APRIL, 4, 22, 30);
 		certificado.setData(date);
 		certificado.validaData();
 		System.out.println( certificado.getData() );
@@ -23,7 +25,7 @@ public class CertificadoTest {
 	public void validaDataFail() 
 	{
 		final Certificado certificado = new Certificado();
-		LocalDate date = LocalDate.of(2019, 11, 12);
+		LocalDateTime  date = LocalDateTime.of(2019, Month.APRIL, 4, 22, 30);
 		certificado.setData(date);
 		certificado.validaData();
 		System.out.println( certificado.getData() );

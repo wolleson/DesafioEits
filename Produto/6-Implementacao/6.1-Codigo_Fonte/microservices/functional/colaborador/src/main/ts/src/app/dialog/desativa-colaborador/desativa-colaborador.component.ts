@@ -10,13 +10,18 @@ import {Broker} from "eits-ng2";
 export class DesativaColaboradorComponent {
 
 colaborador: any;
-
+justificatica;
+dataDemissao;
+motivo;
   constructor(public dialogRef: MatDialogRef<DesativaColaboradorComponent>,
     @Inject(MAT_DIALOG_DATA) public data : any, ) 
     {
               Broker.of("colaboradorService").promise("findColaboradorById", data.id)
                 .then((result) => {
-                       this.colaborador = result;
+                        this.colaborador = result;
+                        this.dataDemissao = this.colaborador.dataDeDemissao;
+                        this.justificatica =   this.colaborador.justificativa;
+                        this.motivo =  this.colaborador.motivoDesligamento;
                           })
                           .catch((message) =>console.log(message));   
         }
@@ -33,7 +38,10 @@ colaborador: any;
   }
 
   public insertColaborador(colaborador): void {
-  
+  this.colaborador.ativo = false;
+  this.colaborador.dataDeDemissao = this.dataDemissao;
+  this.colaborador.justificativa = this.justificatica
+  this.colaborador.motivoDesligamento  = this.motivo;
       Broker.of("colaboradorService").promise("insertColaborador", colaborador)
             .then((colaborador) => {
             console.log("Foi");
