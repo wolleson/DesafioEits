@@ -51,7 +51,6 @@ idColaborador;
                 this.openAlert();
               })
               .catch((message) =>this.openAlertFail());
-              
       }
       
       
@@ -61,7 +60,8 @@ idColaborador;
           message: 'Certificado salvo com sucesso!',
           closeButton: 'Ok',
         });
-        this.router.navigate([""]);
+        this.router.navigate(['/detalhe-colaborador',this.idColaborador]);
+        
       }
 
 

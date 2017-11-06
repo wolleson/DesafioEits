@@ -46,7 +46,6 @@ motivo;
   this.colaborador.motivoDesligamento  = this.motivo;
       Broker.of("colaboradorService").promise("updateColaborador", this.colaborador)
             .then((colaborador) => {
-            console.log(this.colaborador.ativo);
             this.dialogRef.close();
             })
             .catch((message) =>console.log(message));

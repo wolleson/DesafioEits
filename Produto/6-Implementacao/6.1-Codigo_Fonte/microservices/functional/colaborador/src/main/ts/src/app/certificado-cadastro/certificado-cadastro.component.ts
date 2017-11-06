@@ -46,6 +46,7 @@ idColaborador;
    // salva certificado
   public insertCertificado(): void 
   {
+    console.log("HAHAHAHAHAHA")
       this.certificado.colaboradorId = this.colaborador;
       Broker.of("colaboradorService").promise("insertCertificado", this.certificado)
             .then((certificado) => {
@@ -60,7 +61,7 @@ idColaborador;
         message: 'Certificado salvo com sucesso!',
         closeButton: 'Ok',
       });
-      this.router.navigate([""]);
+      this.router.navigate(['/detalhe-colaborador',this.idColaborador]);
     }
 
 

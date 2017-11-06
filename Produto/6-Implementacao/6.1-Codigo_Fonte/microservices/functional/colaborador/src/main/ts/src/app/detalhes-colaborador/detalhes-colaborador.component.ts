@@ -83,7 +83,7 @@ pageable = {
 
 
   // abre o dialog para excluir
-     openConfirm(id): void
+     openExcluir(id): void
       {
       this._dialogService.openConfirm({
         message: 'Deseja realmente deletar este certificado ?.',
@@ -94,14 +94,12 @@ pageable = {
         if (accept) {
           Broker.of("colaboradorService").promise("deleteCertificado",id)
           .then((result) => {
-         
-                 this.certificados = result.content;
-                 
+            this.findColaborador();
                     })
                     .catch((message) =>console.log(message) );
         } 
       });
-
+      
     }
 
 
@@ -130,7 +128,7 @@ pageable = {
 
 
 // buscar um colaborador pelo id
-findColaborador()
+public findColaborador = function()
 {
   this.activatedRouter.params.subscribe(params => 
     {

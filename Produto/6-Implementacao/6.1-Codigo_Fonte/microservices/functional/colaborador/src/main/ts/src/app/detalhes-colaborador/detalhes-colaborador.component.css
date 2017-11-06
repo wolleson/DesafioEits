@@ -2,21 +2,18 @@
   .buttunVoltar {
     position:relative;
     top: 150%;
-    left: 90%;
+    left: 70%;
   }
   .tudo {
     min-height: 100%;
 
     }
-
     .buttunAdd-container {
       position:relative;
       top: 150%;
-      left: 90%;
-      background:slateblue;
+      left: 70%;
+      
     }
-
-
     .tamanhoColana{
       width: 450px;
       height: 30px;
@@ -25,5 +22,5 @@
     .buttunPesquisa {
       position:relative;
       top: 150%;
-      left: 60%;
+      left: 40%;
     }

@@ -1,4 +1,4 @@
-
+<md-content >
 <mat-card-title>Lista de Colaboradores</mat-card-title>
 <mat-button-toggle class="buttunVoltar-container" (click)=" filterColaboradores()" ><mat-icon>search</mat-icon></mat-button-toggle>
     <br> <br>
@@ -42,8 +42,8 @@
 
         <br><br><br>
 
-        <button mat-raised-button   class="buttunAdd-container" color="warn" [routerLink]="['/cadastro-colaborador']" ><mat-icon>add_circle_outline</mat-icon></button>
-
+        <button mat-raised-button   class="buttunAdd-container" color="accent" [routerLink]="['/cadastro-colaborador']" ><mat-icon>add_circle_outline</mat-icon></button>
+        <div class="example-container">
 <td-data-table
 [data]="colaboradores"
 [columns]="configWidthColumns">
@@ -54,7 +54,10 @@
 <button mat-raised-button  (click)="openDialog(row.id)" > <mat-icon>      delete</mat-icon></button>
 </ng-template>
 </td-data-table>
-<td-paging-bar #pagingBar [firstLast]="firstLast" [pageSize]="5" [total]="100" (change)="page($event)">
-    {{pagingBar.range}} of {{pagingBar.total}}
+<td-paging-bar #pagingBar [firstLast]="firstLast" [pageSize]="10" [total]="100" (change)="page($event)">
+
   </td-paging-bar>
 
+</div>
+
+</md-content>

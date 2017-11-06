@@ -1,19 +1,22 @@
 
 <div layout="row" >
-  <td-layout  class="my-content" >
-    <td-navigation-drawer flex sidenavTitle="Resgistro de Certificados" name="Adminstrador" email="admin@admin.com">
-      <mat-nav-list>
-    
-      </mat-nav-list>
-    </td-navigation-drawer>
-    <td-layout-nav  toolbarTitle="Resgistro de Certificados" navigationRoute="/">
-      <button mat-icon-button td-menu-button tdLayoutToggle   >
-        <mat-icon  >menu</mat-icon>
-      </button>
-      <td-layout-card-over>
-          <router-outlet></router-outlet>
-          
+    <td-layout class="teste">
+      
+        <td-navigation-drawer flex sidenavTitle="Resgistro de Certificados" name="Adminstrador" email="admin@admin.com">
+             <mat-nav-list>
+                 <a mat-list-item><mat-icon  >home</mat-icon>Home</a>          
+            </mat-nav-list>
+        </td-navigation-drawer>
+
+            <button mat-icon-button td-menu-button tdLayoutToggle   >
+                    <mat-icon  >menu</mat-icon>
+             </button>
+
+        <td-layout-card-over  >
+                  <mat-card-content>
+                      <router-outlet></router-outlet>
+                  </mat-card-content> 
         </td-layout-card-over>    
-    </td-layout-nav>
-  </td-layout>
+    
+    </td-layout>
 </div>

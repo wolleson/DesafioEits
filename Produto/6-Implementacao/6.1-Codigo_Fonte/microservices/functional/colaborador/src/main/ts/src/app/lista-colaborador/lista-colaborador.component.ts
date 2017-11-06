@@ -32,8 +32,7 @@ export class ListaColaboradorComponent {
   public colaboradores: any[] = [];
   filtro: any = {};
 
-
- ;
+ 
 // colunas da tabela
   configWidthColumns: ITdDataTableColumn[] = [
     { name: 'nome',  label: 'Nome', width: 200 },
@@ -73,18 +72,20 @@ export class ListaColaboradorComponent {
 // Objeto pageable
   pageable = {
     page: 0,
-    size: 5,
+    size: 10,
     sort: this.sort
    
 };
 
   ngOnInit()
    {
-  this.listAllColaboradores();
- 
     }
 
-      constructor(private _dataTableService: TdDataTableService,private _dialogService: TdDialogService, public dialog: MatDialog) {}
+      constructor(private _dataTableService: TdDataTableService,private _dialogService: TdDialogService, public dialog: MatDialog)
+      {
+        this.listAllColaboradores();
+        
+      }
    
       
   
@@ -105,7 +106,7 @@ export class ListaColaboradorComponent {
       data:{id: ide}
     });
     dialogRef.afterClosed().subscribe(result => {
-     console.log("fecho");
+      this.listAllColaboradores();      
     });
   }
 

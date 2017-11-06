@@ -8,15 +8,15 @@
     <mat-error>Titulo é obrigatório </mat-error>
     
   </mat-form-field>
-
+<div>
 
 <mat-form-field>
   <input matInput [matDatepicker]="data" placeholder="Data " [(ngModel)]="certificado.data"  required [errorStateMatcher]="CertificadoCadastroComponent" >
   <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
   <mat-datepicker #data></mat-datepicker>
   <mat-error>Data é obrigatório </mat-error>
-  
 </mat-form-field>
+</div>
 
 <mat-form-field class="example-full-width">
   <textarea matInput placeholder="Descrição do certificado" [(ngModel)]="certificado.descricao" ></textarea>
@@ -24,4 +24,4 @@
 
 </div>
 <br>  <br>  <br>
-<button mat-raised-button  class="buttunSalvar-container" color="warn" (click)="insertCertificado(certificado)"  >Salvar </button>
+<button mat-raised-button  class="buttunSalvar-container" color="accent" (click)="insertCertificado(certificado)"  >Salvar </button>

@@ -1,15 +1,13 @@
 .buttunVoltar-container {
-    position:relative;
-    top: 150%;
-    left: 80%;
-  }
-    
-  .example-container > * {
-    width: 70%; 
-  }
+  position:relative;
+  top: 150%;
+  left: 70%;
+}
+.example-container > * {
+  width: 60%; 
+}
 
-  .buttunSalvar-container {
-    position:relative;
-    background:slateblue;
-    left: 70%;
-  }
+.buttunSalvar-container {
+  position:relative;
+  left: 70%;
+}
