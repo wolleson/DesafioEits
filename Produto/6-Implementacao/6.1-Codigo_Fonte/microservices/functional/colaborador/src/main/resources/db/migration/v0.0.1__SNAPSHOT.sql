@@ -1,3 +1,13 @@
+-- Schema: colaborador
+
+-- DROP SCHEMA colaborador;
+
+CREATE SCHEMA colaborador
+  AUTHORIZATION "colaboradores-colaborador";
+
+
+
+
 -- Table: colaborador.certificado
 
 -- DROP TABLE colaborador.certificado;

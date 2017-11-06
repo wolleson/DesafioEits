@@ -18,7 +18,8 @@ idColaborador;
 
 
 // busca o certificado
-    constructor(public router: Router, public activatedRouter: ActivatedRoute,  private _dialogService: TdDialogService) {
+    constructor(public router: Router, public activatedRouter: ActivatedRoute,  private _dialogService: TdDialogService)
+    {
       this.activatedRouter.params.subscribe(params => 
         {
             let id = params['id'];
@@ -43,14 +44,18 @@ idColaborador;
   
 
      // metodo para salvar certificado editado
-    public insertCertificado(): void {
+    public insertCertificado(): void
+    {
         Broker.of("colaboradorService").promise("insertCertificado", this.certificado)
               .then((certificado) => {
                 this.openAlert();
               })
-              .catch((message) =>console.log(message));
-        
-      }    // confirmar
+              .catch((message) =>this.openAlertFail());
+              
+      }
+      
+      
+      // confirmar
       openAlert(): void {
         this._dialogService.openAlert({
           message: 'Certificado salvo com sucesso!',
@@ -59,14 +64,24 @@ idColaborador;
         this.router.navigate([""]);
       }
 
+
+
           // metodo para capturar campo vazio
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean 
     {
       // Error when invalid control is dirty, touched, or submitted
       const isSubmitted = form && form.submitted;
       return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-    
-
     }      
+
+    
+    openAlertFail(): void {
+      this._dialogService.openAlert({
+        message: 'Falha ao salvar, verefique se todos os campos obrigatórios foram preenchidos!',
+        closeButton: 'Ok',
+      });
+    }
+
+
   }
   

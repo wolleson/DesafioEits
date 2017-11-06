@@ -40,9 +40,10 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	
 	public void insertColaboradorPass() 
 	{
-		Colaborador colaborador = this.getColaborador();
-		Colaborador colaboradorSav = this.colaboradorService.insertColaborador(colaborador);
+		Colaborador colaboradorSav = this.colaboradorService.insertColaborador(this.getColaborador());
 		Assert.notNull(colaboradorSav);
+		this.colaboradorService.deleteColaborador(colaboradorSav.getId());
+
 	}
 
 	/**
@@ -52,9 +53,12 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	
 	public void findColaboradorByIdPass() 
 	{
-		final Colaborador colaborador = this.colaboradorService.findColaboradorById(2);
+		Colaborador colaboradorSav = this.colaboradorService.insertColaborador(this.getColaborador());
+		final Colaborador colaborador = this.colaboradorService.findColaboradorById(colaboradorSav.getId());
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++"+ colaborador.getNome());
 		Assert.notNull(colaborador);
+		this.colaboradorService.deleteColaborador(colaboradorSav.getId());
+
 	}
 	
 	
@@ -64,10 +68,13 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	@Test
 	public void updateColaboradorPass() 
 	{
-		Colaborador colaboradorUpdate = this.colaboradorService.findColaboradorById(1);
+		Colaborador colaboradorSav = this.colaboradorService.insertColaborador(this.getColaborador());
+		Colaborador colaboradorUpdate = this.colaboradorService.findColaboradorById(colaboradorSav.getId());
 		colaboradorUpdate.setNome("Wolleson");
 		this.colaboradorService.updateColaborador(colaboradorUpdate);
 		assertEquals(colaboradorUpdate.getNome(), "Wolleson");
+		this.colaboradorService.deleteColaborador(colaboradorSav.getId());
+		
 	};
 	
 	/**
@@ -150,6 +157,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 		Certificado certifcado = this.getCertificado();
 		Certificado certifcadoSav = this.colaboradorService.insertCertificado(certifcado);
 		Assert.notNull(certifcadoSav);
+		this.colaboradorService.deleteCertificado(certifcadoSav.getId());
 	}
 	
 	
@@ -160,8 +168,10 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	
 	public void findCertificadoByIdPass()
 	{
-		final Certificado certificado = this.colaboradorService.findCertificadoById(4);
+		Certificado certifcadoSav = this.colaboradorService.insertCertificado(this.getCertificado());
+		final Certificado certificado = this.colaboradorService.findCertificadoById(certifcadoSav.getId());
 		Assert.notNull(certificado);
+		this.colaboradorService.deleteCertificado(certifcadoSav.getId());
 	}
 	
 	/**
@@ -171,10 +181,11 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	
 	public void updateCertificadoPass() 
 	{
-	    Certificado certificado = this.colaboradorService.findCertificadoById(4);
-		certificado.setTitulo("Updatetest");
-		Certificado certifcadoSav = this.colaboradorService.insertCertificado(certificado);
-		assertEquals(certifcadoSav.getTitulo(), "Updatetest");
+		Certificado certificado = this.colaboradorService.insertCertificado(this.getCertificado());
+	  	certificado.setTitulo("PHP");
+		Certificado certifcadoSav = this.colaboradorService.updateCertificado(certificado);
+		assertEquals(certifcadoSav.getTitulo(), "PHP");
+		this.colaboradorService.deleteCertificado(certifcadoSav.getId());
 	}
 	
 	/**
@@ -183,8 +194,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	@Test(expected = IllegalArgumentException.class)
 	public void deleteCertificadoPass() 
 	{
-		Certificado certifcado = this.getCertificado();
-		Certificado certifcadoSav = this.colaboradorService.insertCertificado(certifcado);
+		Certificado certifcadoSav = this.colaboradorService.insertCertificado(this.getCertificado());
 		this.colaboradorService.deleteCertificado(certifcadoSav.getId());
 		this.colaboradorService.findCertificadoById(certifcadoSav.getId());
 	}
@@ -269,8 +279,8 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 		Cargo cargo = Cargo.ARQUITETO;
 		byte[] bytes = new byte[4];
 		Colaborador colaborador = new Colaborador();
-		colaborador.setNome("wolle");
-		colaborador.setSobrenome("teste2");
+		colaborador.setNome("João");
+		colaborador.setSobrenome("Santos");
 		colaborador.setAtivo(true);
 		colaborador.setDataDeNascimento(date);
 		colaborador.setDataDeAdmissao(date);
@@ -292,9 +302,9 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	Colaborador colaborador = new Colaborador();
 	colaborador = this.getColaborador();
 	colaborador = this.colaboradorService.insertColaborador(colaborador);
-	certificado.setTitulo("testeee");
+	certificado.setTitulo("Angular 2");
 	certificado.setCertificado(bytes);
-	certificado.setDescricao("testetet");
+	certificado.setDescricao("Bem loko");
 	certificado.setData(date);
 	certificado.setColaboradorId(colaborador);
 	return certificado;	

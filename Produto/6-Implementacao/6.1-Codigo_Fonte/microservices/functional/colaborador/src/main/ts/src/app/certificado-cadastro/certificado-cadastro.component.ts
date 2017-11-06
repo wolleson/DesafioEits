@@ -51,8 +51,7 @@ idColaborador;
             .then((certificado) => {
               this.openAlert();
             })
-            .catch((message) =>console.log(message));
-      
+            .catch((message) =>this.openAlertFail());
     }
 
     // confirmar
@@ -71,6 +70,13 @@ idColaborador;
       // Error when invalid control is dirty, touched, or submitted
       const isSubmitted = form && form.submitted;
       return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+
+    openAlertFail(): void {
+      this._dialogService.openAlert({
+        message: 'Falha ao salvar, verefique se todos os campos obrigatórios foram preenchidos!',
+        closeButton: 'Ok',
+      });
     }
   
   
