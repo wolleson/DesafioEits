@@ -1,11 +1,10 @@
-
 <mat-card-title >Cadastro de Colaboradores</mat-card-title>
  
 <mat-button-toggle class="buttunVoltar-container" [routerLink]="['']" >Voltar</mat-button-toggle>
 
-<div class="example-container">
+    <div class="example-container">
   
-      
+  
   <mat-form-field>
     <input matInput #message maxlength="256" class = "input-conf" required [errorStateMatcher]="ColaboradorCadastroComponent"    placeholder="Nome" [(ngModel)]="colaborador.nome">
     <mat-error>Nome é obrigatório </mat-error>
@@ -36,7 +35,7 @@
 </div>
 
   <mat-form-field>
-    <input matInput placeholder="Número da carteira de Trabalho" [(ngModel)]="colaborador.numeroCarteiraTrabalho" >
+    <input matInput placeholder="Número da carteira de Trabalho" type="number"  [(ngModel)]="colaborador.numeroCarteiraTrabalho" >
     <mat-error ></mat-error>
   </mat-form-field>
 
@@ -60,8 +59,7 @@
     <mat-error>Regime do contrato é obrigatório </mat-error>
   </mat-form-field>
 
-<div >
-  <br>  <br>  
-  <mat-button-toggle  class="buttunSalvar-container"  color = "accent" (click)="insertColaborador(colaborador)" >Salvar</mat-button-toggle>
+<div>
+    <button mat-raised-button  class="buttunSalvar-container" color="warn" (click)="insertColaborador(colaborador)" >Salvar </button>
 </div>
 </div>

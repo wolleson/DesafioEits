@@ -14,19 +14,27 @@ import br.com.colaborador.colaborador.domain.entity.Cargo;
 import br.com.colaborador.colaborador.domain.entity.Colaborador;
 import br.com.colaborador.colaborador.domain.entity.RegimeDoContrato;
 
-@Repository
-public interface IColaboradorRepository extends JpaRepository<Colaborador, Long> {
 
-	
+/*
+ * Classe onde inplementamos as consultas mais complexas
+ */
+
+@Repository
+public interface IColaboradorRepository extends JpaRepository<Colaborador, Long>
+{	
+	/*
+	 * Filtro de colaboradores
+	 */
 	@Query(value="FROM Colaborador colaborador " +
-	  "WHERE ((FILTER (colaborador.nome, :nome) = TRUE )"
+	  "WHERE ((FILTER (colaborador.nome, :nome) = TRUE "
+	  + "AND FILTER(colaborador.sobrenome, :sobrenome)= TRUE) "
 	  		    + "AND ((:dataDemissao < NOW()) OR (:dataDemissao = colaborador.dataDeDemissao) OR (:dataDemissao IS NULL)) "
 	  		    + "AND ((:dataAdmissao < NOW()) OR (:dataAdmissao = colaborador.dataDeAdmissao) OR (:dataAdmissao IS NULL)) "
 	  				
 	  		+ "AND ((:cargo IS NULL) OR (:cargo = colaborador.cargo)) "
 	  		+ "AND ((:regimeContrato  IS NULL) OR (:regimeContrato = colaborador.regimeDoContrato)) "
 	  		+ "AND ((:ativo IS NULL) OR (:ativo = colaborador.ativo)) "
-	  		+ "AND ((:sobrenome IS NULL) OR (:sobrenome LIKE colaborador.sobrenome)) "
+	  		
 	  + ")"
 )
 	public Page<Colaborador> listByFilters( 
@@ -39,10 +47,8 @@ public interface IColaboradorRepository extends JpaRepository<Colaborador, Long>
 			  @Param( "dataDemissao" ) LocalDateTime  dataDemissao, 
 			  Pageable pageable );
 	
-
 	
 	
 	@Query(" from Colaborador colaborador where colaborador.nome like :pFilter ")
 	public Page<Colaborador> listColaboradorByFilters( @Param("pFilter") String filter, Pageable pageable);
-	
 }

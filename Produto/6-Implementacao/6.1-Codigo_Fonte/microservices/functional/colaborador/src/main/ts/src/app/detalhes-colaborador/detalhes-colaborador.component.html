@@ -5,66 +5,61 @@
 
  <mat-card-title>Detalhes do Colaborador</mat-card-title>
 
- 
+ <table>
+        <tr>
+                <td class="tamanhoColana" ><label>Nome: {{colaborador?.nome}} </label> </td>
+                <td>  <label> Sobrenome:{{colaborador?.sobrenome}} </label> </td>
+        </tr>
 
- <p>Nome: {{colaborador?.nome}}
- Sobrenome:{{colaborador?.sobrenome}}
-</p>
+        <tr>
+                <td class="tamanhoColana" ><label>  Data de Nascimento:{{ colaborador?.dataDeNascimento| date:'dd/MM/yyyy' }}</label> </td>
+                <td>    <label>Data de Admissão: {{colaborador?.dataDeAdmissao |date:'dd/MM/yyyy'}}</label> </td>
+        </tr>
 
-<p>
-    Data de Admissão:{{colaborador?.dataDeAdmissao}}
-    Data de Demissão:{{colaborador?.dataDeDemissao}}
-</p>
- 
-<p>
-    Data de Nascimento:{{colaborador?.dataDeNascimento}}
-    N° de Carteira de Trabalho: {{colaborador?.dataDeNascimento}}
-</p>
+        <tr>
+                <td class="tamanhoColana" >  <label>Data de Demissão:{{colaborador?.dataDeDemissao  |date:'dd/MM/yyyy' }}</label> </td>
+                <td>    <label>  N° de Carteira de Trabalho: {{colaborador?.numeroCarteiraTrabalho}}</label> </td>
+        </tr>
 
-<P>
-    Cargo:{{colaborador?.cargo}}
-    Regime de Contrato: {{colaborador?.regimeDoContrato}}
+        <tr>
+                <td class="tamanhoColana" >  <label>Cargo:{{colaborador?.cargo}}</label> </td>
+                <td>   <label>  Regime de Contrato: {{colaborador?.regimeDoContrato}}</label> </td>
+        </tr>
 
-</P>
+ </table>
 
 
-<br><br><br>
 
-<mat-button-toggle (click)="filterCertificados()" ><mat-icon>search</mat-icon></mat-button-toggle>
-<br>
+<br><br>  
+<mat-button-toggle (click)="filterCertificados()" class="buttunPesquisa"  ><mat-icon>search</mat-icon></mat-button-toggle>
 
 <mat-form-field>
     <input matInput placeholder="Pesquisa pelo titulo "  [(ngModel)]=" filtro.titulo ">
-  </mat-form-field>
-
-
-<mat-form-field>
-  <input matInput [matDatepicker]="data" placeholder="pesquisa pela data " [(ngModel)]="filtro.data" >
-  <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
-  <mat-datepicker #data></mat-datepicker>
 </mat-form-field>
+
 
 
 <mat-form-field>
     <input matInput placeholder=" Pesquisa pela descrição"  [(ngModel)]="filtro.descricao">
-  </mat-form-field>
+</mat-form-field>
 
-<br> <br> <br>
-    <mat-button-toggle  class="buttunAdd-container" color="warn" [routerLink]= "['/cadastro-certificado',id]"><mat-icon> add_circle_outline </mat-icon></mat-button-toggle>
-
+<br>
+    <button mat-raised-button   class="buttunAdd-container" color="warn" [routerLink]= "['/cadastro-certificado',id]" ><mat-icon>add_circle_outline</mat-icon></button>
+    
+    <mat-card-title> Lista de Certificados </mat-card-title>
 <td-data-table
-[data]="certificados"
-[columns]="configWidthColumns" >
+    [data]="certificados"
+    [columns]="configWidthColumns" >
 
-
-<ng-template tdDataTableTemplate="acao"  let-row="row">
-<button mat-raised-button  [routerLink]="['/editar-certificado',row.id]"> <mat-icon>edit</mat-icon></button>
-<button mat-raised-button   (click)="openDialog(row.id)"> <mat-icon>visibility</mat-icon></button>
-<button mat-raised-button  (click)="openConfirm(row.id)" > <mat-icon>delete</mat-icon></button>
-</ng-template>
+    <ng-template tdDataTableTemplate="acao"  let-row="row">
+        <button mat-raised-button  [routerLink]="['/editar-certificado',row.id]"> <mat-icon>edit</mat-icon></button>
+        <button mat-raised-button   (click)="openDialog(row.id)"> <mat-icon>visibility</mat-icon></button>
+        <button mat-raised-button  (click)="openConfirm(row.id)" > <mat-icon>delete</mat-icon></button>
+    </ng-template>
 
 </td-data-table>
+
 <td-paging-bar #pagingBar [firstLast]="firstLast" [pageSize]="5" [total]="100" (change)="page($event)">
     {{pagingBar.range}} of {{pagingBar.total}}
-  </td-paging-bar>
+</td-paging-bar>
 

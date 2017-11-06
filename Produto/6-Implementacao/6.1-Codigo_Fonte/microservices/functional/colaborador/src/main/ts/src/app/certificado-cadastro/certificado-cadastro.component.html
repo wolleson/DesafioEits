@@ -1,23 +1,24 @@
-
-
-
  <mat-button-toggle class="buttunVoltar-container" [routerLink]="['/detalhe-colaborador', idColaborador]" >Voltar</mat-button-toggle>
+
  <div class="example-container">
+   <mat-form-field>
+          <input matInput placeholder="Titulo do certificado" [(ngModel)]="certificado.titulo"  required [errorStateMatcher]="CertificadoCadastroComponent" >
+          <mat-error>Titulo é obrigatório </mat-error>
+    </mat-form-field>
+
+
   <mat-form-field>
-    <input matInput placeholder="Titulo do certificado" [(ngModel)]="certificado.titulo" >
+        <input matInput [matDatepicker]="data" placeholder="Data " [(ngModel)]="certificado.data"  required [errorStateMatcher]="CertificadoCadastroComponent" >
+        <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
+        <mat-datepicker #data></mat-datepicker>
+        <mat-error>Data é obrigatório </mat-error>
+    </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Descrição do certificado" [(ngModel)]="certificado.descricao" ></textarea>
   </mat-form-field>
 
-
-<mat-form-field>
-  <input matInput [matDatepicker]="data" placeholder="Data " [(ngModel)]="certificado.data" >
-  <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
-  <mat-datepicker #data></mat-datepicker>
-</mat-form-field>
-
-<mat-form-field class="example-full-width">
-  <textarea matInput placeholder="Descrição do certificado" [(ngModel)]="certificado.descricao" ></textarea>
-</mat-form-field>
-
 </div>
-<br>  <br>  <br>
+
+<br><br> <br>
 <mat-button-toggle class="buttunSalvar-container"  color = "accent" (click)="insertCertificado(certificado)" >Salvar</mat-button-toggle>

@@ -37,19 +37,6 @@
       
 
       
-            <mat-form-field>
-              <input matInput [matDatepicker]="dataDeDemissao"   placeholder="Data de Demissão"[(ngModel)]="filtro.dataDemissao" >
-              <mat-datepicker-toggle matSuffix [for]="dataDeDemissao"></mat-datepicker-toggle>
-              <mat-datepicker #dataDeDemissao></mat-datepicker>
-            </mat-form-field>
-          
-       
-          <mat-form-field>
-            <input matInput [matDatepicker]="dataDeAdmissao"   placeholder="Data de Admissão" [(ngModel)]="filtro.dataAdmissao">
-            <mat-datepicker-toggle matSuffix [for]="dataDeAdmissao"></mat-datepicker-toggle>
-            <mat-datepicker #dataDeAdmissao></mat-datepicker>
-          </mat-form-field>
-
         </div>
 
 
@@ -60,6 +47,7 @@
 <td-data-table
 [data]="colaboradores"
 [columns]="configWidthColumns">
+
 <ng-template tdDataTableTemplate="acao"  let-row="row">
 <button mat-raised-button  [routerLink]="['/editar-colaborador', row.id]"> <mat-icon>edit</mat-icon></button>
 <button mat-raised-button  [routerLink]="['/detalhe-colaborador', row.id]"> <mat-icon>visibility</mat-icon></button>

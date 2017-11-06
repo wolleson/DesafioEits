@@ -1,5 +1,6 @@
 
-  <td-layout class="tudo">
+<div layout="row" >
+  <td-layout   >
     <td-navigation-drawer flex sidenavTitle="Resgistro de Certificados" name="Adminstrador" email="admin@admin.com">
       <mat-nav-list>
     
@@ -9,9 +10,10 @@
       <button mat-icon-button td-menu-button tdLayoutToggle   >
         <mat-icon  >menu</mat-icon>
       </button>
-      <td-layout-card-over >
-        <router-outlet></router-outlet>
-      </td-layout-card-over>
+      <td-layout-card-over>
+          <router-outlet></router-outlet>
+          
+        </td-layout-card-over>    
     </td-layout-nav>
   </td-layout>
- 
+</div>

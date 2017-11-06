@@ -45,10 +45,11 @@ import {
   MatStepperModule,
   
 } from '@angular/material';
+import { CovalentVirtualScrollModule } from '@covalent/core';
 import {HttpModule} from '@angular/http';
 import {CdkTableModule} from '@angular/cdk/table';
 import { ListaColaboradorComponent } from './lista-colaborador/lista-colaborador.component';
-import { DesativaColaboradorComponent } from './dialog/desativa-colaborador/desativa-colaborador.component';
+import { DesativaColaboradorComponent } from './desativa-colaborador/desativa-colaborador.component';
 import { DetalhesColaboradorComponent } from './detalhes-colaborador/detalhes-colaborador.component';
 import { CertificadoCadastroComponent } from './certificado-cadastro/certificado-cadastro.component';
 import { DetalhesCertificadoComponent } from './detalhes-certificado/detalhes-certificado.component';
@@ -69,6 +70,7 @@ import { CertificadoEditarComponent } from './certificado-editar/certificado-edi
     
   ],
   imports: [
+    CovalentVirtualScrollModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -114,8 +116,6 @@ import { CertificadoEditarComponent } from './certificado-editar/certificado-edi
     RoutingModule,
     CovalentLayoutModule,
     CovalentFileModule
-    
-    
   ],
 
   entryComponents: [

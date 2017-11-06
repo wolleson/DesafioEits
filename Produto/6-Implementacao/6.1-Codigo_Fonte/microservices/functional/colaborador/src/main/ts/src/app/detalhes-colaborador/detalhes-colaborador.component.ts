@@ -10,7 +10,7 @@ import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEven
 import { IPageChangeEvent } from '@covalent/core'; 
 import { TdDialogService } from '@covalent/core'; 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material'; 
-import { DesativaColaboradorComponent } from './../dialog/desativa-colaborador/desativa-colaborador.component'; 
+import { DesativaColaboradorComponent } from './../desativa-colaborador/desativa-colaborador.component'; 
 import { DetalhesCertificadoComponent } from './../detalhes-certificado/detalhes-certificado.component'; 
 import 'rxjs/add/operator/startWith'; 
 import 'rxjs/add/observable/merge'; 
@@ -34,12 +34,10 @@ export class DetalhesColaboradorComponent implements OnInit {
 
  // colunas da tabela
  configWidthColumns: ITdDataTableColumn[] = [
-   { name: 'titulo',  label: 'Titulo', width: 150 },
-   { name: 'data',  label: 'Data', width: 150 },
+   { name: 'titulo',  label: 'Titulo', width: 250 },
+   { name: 'data',  label: 'Data', width: 150, format: (value) =>{ { return this.formatarData(value)}}},
    { name: 'descricao',  label: 'Descricão', width: 450 },
    { name: 'acao',  label: 'Ações', width:350 },
- 
-
  ];
 
  sort =  {//Sort
@@ -153,14 +151,25 @@ findColaborador()
 // filtro de certificados
 public filterCertificados = function()
 {
-  Broker.of("colaboradorService").promise("filterCertificados", this.filtro.titulo, this.filtro.descricao,this.filtro.data, this.pageable)
+  Broker.of("colaboradorService").promise("filterCertificados", this.filtro.titulo, this.filtro.descricao, this.pageable)
   .then((result) => 
   {
-    this.certificado = result.content;
-  
+    this.certificados = result.content;
   })
   .catch((message) =>console.log(message));
 }
 
+
+// metodo para formatar a data
+public formatarData(data): String
+{
+ var d = new Date(data),
+     mes = '' + (d.getMonth() + 1),
+     dia = '' + d.getDate(),
+     ano = d.getFullYear();
+ if (mes.length < 2) mes = '0' + mes;
+ if (dia.length < 2) dia = '0' + dia;
+ return [dia, mes, ano].join('/'); // "join" é o caracter para separar a formatação da data, neste caso, a barra (/)
+}
 
  }

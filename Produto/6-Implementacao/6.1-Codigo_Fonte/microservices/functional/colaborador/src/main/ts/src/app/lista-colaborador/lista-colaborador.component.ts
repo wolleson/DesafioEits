@@ -8,7 +8,7 @@ import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEven
 import { IPageChangeEvent } from '@covalent/core';
 import { TdDialogService } from '@covalent/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { DesativaColaboradorComponent } from './../dialog/desativa-colaborador/desativa-colaborador.component';
+import { DesativaColaboradorComponent } from './../desativa-colaborador/desativa-colaborador.component';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
@@ -18,7 +18,6 @@ import { Data } from '@angular/router';
 /**
  * @title Basic table
  */
-
 @Component({
   selector: 'app-lista-colaborador',
   templateUrl: './lista-colaborador.component.html',
@@ -27,20 +26,23 @@ import { Data } from '@angular/router';
 
 
 
+
 export class ListaColaboradorComponent {
   displayedColumns = ['Nome'];
   public colaboradores: any[] = [];
   filtro: any = {};
-  
+
+
+ ;
 // colunas da tabela
   configWidthColumns: ITdDataTableColumn[] = [
-    { name: 'nome',  label: 'Nome', width: 150 },
-    { name: 'sobrenome',  label: 'Sobrenome', width: 150 },
+    { name: 'nome',  label: 'Nome', width: 200 },
+    { name: 'sobrenome',  label: 'Sobrenome', width: 180 },
     { name: 'cargo',  label: 'Cargo', width: 150 },
     { name: 'regimeDoContrato',  label: 'Regime do Contrato', width: 150 },
-    { name: 'ativo',  label: 'Ativo', width: 150 },
-    { name: 'dataDeAdmissao',  label: 'Admissão', width: 150  },
-    { name: 'dataDeDemissao',  label: 'Demissão', width: 150 },
+    { name: 'ativo',  label: 'Ativo', width: 150 , format: (value) =>{ { return this.fortamaAtivoColaborador(value)}}},
+    { name: 'dataDeAdmissao',  label: 'Admissão', width: 150, format: (value) =>{ { return this.formatarData(value)}}},
+    { name: 'dataDeDemissao',  label: 'Demissão', width: 150, format: (value) =>{ { return this.formatarData(value)}}},
     { name: 'acao',  label: 'Ações', width: 350 },
   ];
 
@@ -78,7 +80,8 @@ export class ListaColaboradorComponent {
 
   ngOnInit()
    {
-  this.listAllColaboradores(); 
+  this.listAllColaboradores();
+ 
     }
 
       constructor(private _dataTableService: TdDataTableService,private _dialogService: TdDialogService, public dialog: MatDialog) {}
@@ -117,6 +120,7 @@ export class ListaColaboradorComponent {
     .then((result) => 
     {
       this.colaboradores = result.content;
+      this.exibeAtivoColaborador();
     
     })
     .catch((message) =>console.log(message));
@@ -127,7 +131,7 @@ export class ListaColaboradorComponent {
 
 
 
-// busca todos colaboradores
+// Busca todos colaboradores
 public listAllColaboradores()
 {
   Broker.of("colaboradorService").promise("listAllColaboradore", this.pageable)
@@ -140,22 +144,30 @@ public listAllColaboradores()
 }
 
 
-public exibeAtivoColaborador(): void{
-  let i:0;
-  for( i= 0 ; i < this.colaboradores.length;i++){
-
-    if(this.colaboradores[i])  
+// metodo para formatar o campo ativo antes de exibir na tabela, muda o true para "Avito" e o false para "Desativado"
+public fortamaAtivoColaborador(ativo): String
+ {
+    if(ativo == true)  
       {
-       console.log("teste")
+        return "Ativo";
+      } else{
+        return "Desativado";
       }
   }
 
 
-}
 
-
-
-
+// metodo para formatar a data
+    public formatarData(data): String
+     {
+      var d = new Date(data),
+          mes = '' + (d.getMonth() + 1),
+          dia = '' + d.getDate(),
+          ano = d.getFullYear();
+      if (mes.length < 2) mes = '0' + mes;
+      if (dia.length < 2) dia = '0' + dia;
+      return [dia, mes, ano].join('/'); // "join" é o caracter para separar a formatação da data, neste caso, a barra (/)
+  }
 }
 
 

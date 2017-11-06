@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material'
-import { ListaColaboradorComponent } from './../../lista-colaborador/lista-colaborador.component';
+import { ListaColaboradorComponent } from './../lista-colaborador/lista-colaborador.component';
 import {Broker} from "eits-ng2";
 @Component({
   selector: 'app-desativa-colaborador',
@@ -13,6 +13,8 @@ colaborador: any;
 justificatica;
 dataDemissao;
 motivo;
+
+
   constructor(public dialogRef: MatDialogRef<DesativaColaboradorComponent>,
     @Inject(MAT_DIALOG_DATA) public data : any, ) 
     {
@@ -29,22 +31,22 @@ motivo;
      
 
   onNoClick(){
-    console.log("oi");
     this.dialogRef.close("fecha"); 
-
   }
  
   ngOnInit() {
   }
 
-  public insertColaborador(colaborador): void {
+
+  // atualiza o certificado 
+  public insertColaborador(): void {
   this.colaborador.ativo = false;
   this.colaborador.dataDeDemissao = this.dataDemissao;
   this.colaborador.justificativa = this.justificatica
   this.colaborador.motivoDesligamento  = this.motivo;
-      Broker.of("colaboradorService").promise("insertColaborador", colaborador)
+      Broker.of("colaboradorService").promise("updateColaborador", this.colaborador)
             .then((colaborador) => {
-            console.log("Foi");
+            console.log(this.colaborador.ativo);
             this.dialogRef.close();
             })
             .catch((message) =>console.log(message));

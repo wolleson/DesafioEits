@@ -2,7 +2,7 @@ SET search_path = colaborador, pg_catalog;
 --
 -- Table: colaborador.colaborador
 
---DROP TABLE colaborador.colaborador;
+DROP TABLE colaborador.colaborador;
 
 CREATE TABLE colaborador.colaborador
 (
@@ -41,11 +41,6 @@ INSERT INTO colaborador.colaborador(
 
             
             
-            
-			INSERT INTO colaborador.certificado(
-            id, atualizacao, criacao, versao, certificado, colaborador_id, 
-            data, descricao, titulo)
-    VALUES (2, now(),now(), 2, null, 1, 
-            '2017-03-10', 'descricao', 'teste');
+   
 			
 --CREATE extension unaccent

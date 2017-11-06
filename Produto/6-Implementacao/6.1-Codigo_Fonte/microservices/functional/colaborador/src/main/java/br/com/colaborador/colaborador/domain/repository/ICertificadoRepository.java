@@ -14,23 +14,19 @@ import br.com.colaborador.colaborador.domain.entity.Certificado;
 import br.com.colaborador.colaborador.domain.entity.Colaborador;
 import br.com.colaborador.colaborador.domain.entity.RegimeDoContrato;
 
+/*
+ * Classe onde inplementamos as consultas mais complexas
+ */
+public interface ICertificadoRepository extends JpaRepository<Certificado, Long>
+{
 
-
-public interface ICertificadoRepository extends JpaRepository<Certificado, Long>{
-
-	
-	
-	
 	@Query(value="FROM Certificado certificado " +
-			 "WHERE ( (:titulo IS NULL) OR (:titulo LIKE certificado.titulo)  "
-			 +"AND (:descricao IS NULL) OR (:descricao LIKE certificado.descricao)  "
-		     + "AND ((:data < NOW()) OR (:data = certificado.data) OR (:data IS NULL)) "
-			  + ")"
+			  "WHERE ((FILTER (certificado.titulo, :titulo) = TRUE "
+			  + "AND FILTER(certificado.descricao, :descricao)= TRUE) )"
 		)
 			public Page<Certificado> listByFiltersCertificado( 
 					  @Param( "titulo" ) String titulo,  
 					  @Param( "descricao" ) String descricao, 
-					  @Param( "data" ) LocalDateTime data, 
 					  Pageable pageable );
 			
 	

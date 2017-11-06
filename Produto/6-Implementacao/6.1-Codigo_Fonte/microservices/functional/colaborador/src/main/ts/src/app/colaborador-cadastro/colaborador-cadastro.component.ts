@@ -19,8 +19,8 @@ export class ColaboradorCadastroComponent implements OnInit, ErrorStateMatcher {
    
   colaborador: any = {};
  arquivo: any;
-
-  
+ colaboradorForm: FormControl;
+ form: FormGroupDirective;
   cargo = [
     {value: 'ENGENHEIRO_SOFTWARE', viewValue: 'Engenheiro de Software'},
     {value: 'SUPORTE', viewValue: 'Suporte'},
@@ -41,26 +41,24 @@ export class ColaboradorCadastroComponent implements OnInit, ErrorStateMatcher {
 
   constructor(public router: Router, public activatedRouter: ActivatedRoute, fb: FormBuilder, private _dialogService: TdDialogService)
    { 
-    this.findColaboradorById();    
+    this.findColaboradorById();   
     }
 
     
     ngOnInit() {
     }
   
-    
-
-
+  
 
 // salva colaborador
   public insertColaborador(colaborador): void
    {
-      Broker.of("colaboradorService").promise("insertColaborador", colaborador)
+    Broker.of("colaboradorService").promise("insertColaborador", colaborador)
             .then((colaborador) => {
              this.openAlert();
            
             })
-            .catch((message) =>console.log(message));
+            .catch((message) =>this.openAlertFail());
     }
 
 
@@ -76,7 +74,7 @@ export class ColaboradorCadastroComponent implements OnInit, ErrorStateMatcher {
                 .then((result) => {
                        this.colaborador = result;
                           })
-                          .catch((message) =>console.log(message));
+                          .catch((message) =>console.log());
                   } 
         });
     }
@@ -102,8 +100,12 @@ export class ColaboradorCadastroComponent implements OnInit, ErrorStateMatcher {
       this.router.navigate([""]);
     }
 
-
-
+    openAlertFail(): void {
+      this._dialogService.openAlert({
+        message: 'Falha ao salvar, verefique se todos os campos obrigatórios foram preenchidos!',
+        closeButton: 'Ok',
+      });
+    }
 }
  
 

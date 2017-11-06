@@ -29,20 +29,15 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	private ColaboradorService colaboradorService;
 
 	
-	
-	
 	/*-------------------------------------------------------------------
 	 *				 		     PassTest para o CRUD de Colaborador
 	 *-------------------------------------------------------------------*/
-	
 	
 	/**
 	 * 
 	 */
 	@Test
-	@Sql({//
-		"/dataset/colaborador/colaborador.sql"//
-	})
+	
 	public void insertColaboradorPass() 
 	{
 		Colaborador colaborador = this.getColaborador();
@@ -54,9 +49,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	 * 
 	 */
 	@Test
-	@Sql({//
-		"/dataset/colaborador/colaborador.sql"//
-	})
+	
 	public void findColaboradorByIdPass() 
 	{
 		final Colaborador colaborador = this.colaboradorService.findColaboradorById(2);
@@ -151,9 +144,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	 * 
 	 */
 	@Test
-	@Sql({//
-		"/dataset/colaborador/certificado.sql"//
-	})
+	
 	public void insertCertificadoPass() 
 	{
 		Certificado certifcado = this.getCertificado();
@@ -166,12 +157,10 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	 * 
 	 */
 	@Test
-	@Sql({//
-		"/dataset/colaborador/certificado.sql"//
-	})
+	
 	public void findCertificadoByIdPass()
 	{
-		final Certificado certificado = this.colaboradorService.findCertificadoById(2);
+		final Certificado certificado = this.colaboradorService.findCertificadoById(4);
 		Assert.notNull(certificado);
 	}
 	
@@ -179,13 +168,10 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	 * 
 	 */
 	@Test
-	@Sql({//
-		"/dataset/colaborador/certificado.sql"//
-	})
+	
 	public void updateCertificadoPass() 
 	{
-	
-	    Certificado certificado = this.colaboradorService.findCertificadoById(2);
+	    Certificado certificado = this.colaboradorService.findCertificadoById(4);
 		certificado.setTitulo("Updatetest");
 		Certificado certifcadoSav = this.colaboradorService.insertCertificado(certificado);
 		assertEquals(certifcadoSav.getTitulo(), "Updatetest");
@@ -258,9 +244,7 @@ public class ColaboradorSeviceTest extends AbstractIntegrationTests{
 	}
 	
 	@Test
-	@Sql({//
-		"/dataset/colaborador/certificado.sql"//
-	})
+	
 	public void listCertificadosByColaboradores() {
 		Long id = new Long(1);
 	//	Page<Certificado> certificados = this.colaboradorService.listCertificadosByColaboradores(id);

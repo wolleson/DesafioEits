@@ -65,25 +65,21 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @return Colaborador
 	 */
 	
-	public Colaborador findColaboradorById(long id) {
+	public Colaborador findColaboradorById(long id) 
+	{
 		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
 		Colaborador colaborador = this.colaboradorRepository.findOne( id );
 		return 	colaborador;
 	}
 	
 	
-	public String teste()
-	{
-		return "Hello World";
-	}
-
-	
 	/**
 	 * @param id
 	 * @return Certificado
 	 */
 
-	public Certificado findCertificadoById(long id) {
+	public Certificado findCertificadoById(long id) 
+	{
 		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
 		return  this.certificadoRepository.findOne(id);	
 	}
@@ -93,7 +89,8 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @return Colaborador
 	  */
 
-	public Colaborador insertColaborador(Colaborador colaborador) {
+	public Colaborador insertColaborador(Colaborador colaborador)
+	{
 		Assert.notNull( colaborador, this.messageSource.getMessage( "colaborador.null", null, LocaleContextHolder.getLocale() ) );	  
 		colaborador.setAtivo(true);
 		Colaborador save = this.colaboradorRepository.save(colaborador);
@@ -105,7 +102,8 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @return Certificado
 	  */
 	
-	public Certificado insertCertificado(Certificado certificado){
+	public Certificado insertCertificado(Certificado certificado)
+	{
 		Assert.notNull( certificado, this.messageSource.getMessage( "certificado.null", null, LocaleContextHolder.getLocale() ) );
 		return this.certificadoRepository.save(certificado);
 	}
@@ -116,7 +114,8 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @return Colaborador
 	  */
 
-	public Colaborador updateColaborador(Colaborador colaborador) {
+	public Colaborador updateColaborador(Colaborador colaborador)
+	{
 		Assert.notNull( colaborador, this.messageSource.getMessage( "colaborador.null", null, LocaleContextHolder.getLocale() ) );
 		return this.colaboradorRepository.save(colaborador);
 	};
@@ -127,7 +126,8 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @return Certificado
 	  */
 	
-	public Certificado updateCertificado(Certificado certificado) {
+	public Certificado updateCertificado(Certificado certificado) 
+	{
 		Assert.notNull( certificado, this.messageSource.getMessage( "certificado.null", null, LocaleContextHolder.getLocale() ) );
 		return this.certificadoRepository.save(certificado);
 	}
@@ -138,7 +138,8 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @param id
 	 */
 
-	public void deleteColaborador(Long id) {
+	public void deleteColaborador(Long id) 
+	{
 		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
 		this.colaboradorRepository.delete(id);	
 	}
@@ -148,7 +149,8 @@ public class ColaboradorService implements  IColaboradorResource
 	 * @param id
 	 */
 
-	public void deleteCertificado(Long id) {
+	public void deleteCertificado(Long id) 
+	{
 		Assert.notNull( id, this.messageSource.getMessage( "id.null", null, LocaleContextHolder.getLocale() ) );
 		this.certificadoRepository.delete(id);
 		
@@ -183,31 +185,56 @@ public class ColaboradorService implements  IColaboradorResource
 	
 	
 	
+	/**
+	 * @param nome, sobrenome, cargo, regimeContrato, ativo, dataAdmissao, dataDemissao, pageable
+	 * 
+	 * Metodo de filtro de colaboradores
+	 * 
+	 */
 
 	public Page<Colaborador> listColaboradoresByFilters( String nome, String sobrenome, Cargo cargo,
 			RegimeDoContrato regimeContrato, Boolean ativo, LocalDateTime dataAdmissao,LocalDateTime dataDemissao,
-			PageRequest pageable) {
+			PageRequest pageable)
+	{
 		Page<Colaborador> colaboradores = this.colaboradorRepository.listByFilters( nome, sobrenome, cargo, regimeContrato, ativo, dataAdmissao, dataDemissao, pageable);
 		return colaboradores;
 	}
 	
-	public  Page<Colaborador> listAllColaboradore(PageRequest pageable){
+	/**
+	 * @param pageable
+	 * 
+	 * Metodo que lista todos os colaboradores
+	 * 
+	 */
+	public  Page<Colaborador> listAllColaboradore(PageRequest pageable)
+	 {
 		Page<Colaborador> colaboradores = this.colaboradorRepository.findAll(pageable);
 		return colaboradores;
 	}
-	
+	 
+	 
+	 
+	/**
+	 * @param id,pageable
+	 * 
+	 * Metodo que lista todos os certificados de um colaborador
+	 * 
+	 */
 	public Page<Certificado> listCertificadosByColaboradores(Long id, PageRequest pageable)
 	{
 		return this.certificadoRepository.listCertificadoByColaboradores(id , pageable);
 	}
 	
-	
-	public Page<Certificado> filterCertificados( String titulo, String descricao, LocalDateTime data, PageRequest pageable )
+	/**
+	 * @param titulo, descricao, pageable
+	 * 
+	 * Metodo que filtra os certificados pelo titulo e descrição
+	 * 
+	 */
+	public Page<Certificado> filterCertificados( String titulo, String descricao, PageRequest pageable )
 	{
-		return this.certificadoRepository.listByFiltersCertificado(titulo, descricao, data, pageable);
+		return this.certificadoRepository.listByFiltersCertificado(titulo, descricao, pageable);
 	}
-	
-	
 	
 	
 }

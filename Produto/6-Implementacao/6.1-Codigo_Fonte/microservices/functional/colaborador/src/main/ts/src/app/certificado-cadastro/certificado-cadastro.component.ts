@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Broker} from "eits-ng2";
 import { TdFileService, IUploadOptions, TdDialogService } from '@covalent/core';
+import { ErrorStateMatcher } from '@angular/material';
+import { FormControl, Validators, FormGroup, FormBuilder, FormGroupDirective, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-certificado-cadastro',
   templateUrl: './certificado-cadastro.component.html',
   styleUrls: ['./certificado-cadastro.component.css']
 })
-export class CertificadoCadastroComponent implements OnInit {
+export class CertificadoCadastroComponent implements OnInit, ErrorStateMatcher {
 colaborador: any;
 certificado: any = {};
 idColaborador;
@@ -63,5 +65,13 @@ idColaborador;
     }
 
 
+    // metodo para capturar campo vazio
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean 
+    {
+      // Error when invalid control is dirty, touched, or submitted
+      const isSubmitted = form && form.submitted;
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+  
   
 }
